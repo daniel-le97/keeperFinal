@@ -18,9 +18,9 @@ CREATE TABLE
         name varchar(255) NOT NULL,
         description varchar(255) NOT NULL,
         coverImg varchar(500) NOT NULL,
-        isPrivate BOOLEAN DEFAULT false,
+        isPrivate BOOLEAN DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
-        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE COMMENT "Deletes all characters as well"
+        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE 
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
@@ -33,7 +33,7 @@ CREATE TABLE
         img varchar(500),
         views INT,
         creatorId VARCHAR(255) NOT NULL,
-        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE COMMENT "Deletes all characters as well"
+        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
