@@ -14,3 +14,4 @@ global using CodeWorks.Utils;
 global using keeperFinal.Repositories;
 global using keeperFinal.Services;
 global using keeperFinal.Models;
+global using keeperFinal.Interfaces;
