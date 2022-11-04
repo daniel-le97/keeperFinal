@@ -39,7 +39,7 @@ CREATE TABLE
 
 CREATE TABLE
     IF NOT EXISTS vaultKeeps(
-        id INT NOT NULL primary key COMMENT 'primary key',
+        id INT NOT NULL primary key AUTO_INCREMENT COMMENT 'primary key',
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         creatorId varchar(255) NOT NULL,
