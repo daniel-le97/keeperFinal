@@ -33,22 +33,6 @@ public class VaultsController : ControllerBase
         return BadRequest(e.Message);
       }
     }
-
-     [HttpPut("{vaultId}")]
-        [Authorize]
-        public async Task<ActionResult<Vault>> EditVault([FromBody] Vault vaultData, int vaultId)
-        {
-          try
-          {
-            Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-            Vault vault = _vaultsService.EditVault(vaultData,vaultId, userInfo.Id);
-            return Ok(vault);
-          }
-          catch (Exception e)
-          {
-            return BadRequest(e.Message);
-          }
-        }
     
       [HttpDelete("{vaultId}")]
       [Authorize]
@@ -65,15 +49,37 @@ public class VaultsController : ControllerBase
           return BadRequest(e.Message);
         }
       }
+
+        [HttpPut("{vaultId}")]
+        [Authorize]
+        public async Task<ActionResult<Vault>> EditVault([FromBody] Vault vaultData, int vaultId)
+        {
+          try
+          {
+            Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.EditVault(vaultData,vaultId, userInfo.Id);
+            return Ok(vault);
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        }
     
 
       [HttpGet("{vaultId}")]
     
-      public ActionResult<Vault> GetVaultById(int vaultId)
+      public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
       {
         try
         {
-          Vault vault = _vaultsService.GetVaultById(vaultId);
+          Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+          if (userInfo == null)
+          {
+            Vault dif = _vaultsService.GetVaultById(vaultId);
+            return Ok(dif);
+          }
+          Vault vault = _vaultsService.GetVaultById(vaultId, userInfo?.Id);
           return Ok(vault);
         }
         catch (Exception e)
@@ -84,11 +90,17 @@ public class VaultsController : ControllerBase
 
       
         [HttpGet("{vaultId}/keeps")]
-        public ActionResult<List<KeptKeep>> GetAllKeptKeep(int vaultId)
+        public async Task<ActionResult<List<KeptKeep>>> GetAllKeptKeep(int vaultId)
         {
           try
           {
-            List<KeptKeep> keeps = _vaultKeepsService.GetAllKeptKeep(vaultId);
+            Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+              if (userInfo == null)
+                  {
+                   List<KeptKeep> keepers = _vaultKeepsService.GetAllKeptKeep(vaultId);
+                   return Ok(keepers);
+                  }
+            List<KeptKeep> keeps = _vaultKeepsService.GetAllKeptKeep(vaultId, userInfo.Id);
             return Ok(keeps);
           }
           catch (Exception e)

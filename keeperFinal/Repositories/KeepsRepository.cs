@@ -67,7 +67,6 @@ public class KeepsRepository : BaseRepository
     return;
     
   }
-
   internal Keep EditKeep(Keep original)
   {
      string sql = @"UPDATE keeps SET

@@ -10,10 +10,6 @@ public class Vault : IHasCreator
   public string CoverImg { get; set; } = "https://images.unsplash.com/photo-1609358905581-e5381612486e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80";
   public bool? IsPrivate { get; set; }
 
-
-
-
-
   public string CreatorId { get; set; }
   public Profile Creator { get; set; }
   public DateTime CreatedAt { get; set; }
