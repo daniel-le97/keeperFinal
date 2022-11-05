@@ -16,4 +16,15 @@ public class ProfilesService{
   return profile;
   
   }
+
+  internal List<Keep> GetAllKeepsByProfile(string profileId)
+  {
+   return _ProfilesRepository.GetAllKeepsByProfileId(profileId);
+
+  }
+
+  internal List<Vault> GetAllVaultsByProfile(string profileId)
+  {
+    return _ProfilesRepository.GetAllVaultsByProfileId(profileId);
+  }
 }

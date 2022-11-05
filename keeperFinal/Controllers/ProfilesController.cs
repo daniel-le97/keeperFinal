@@ -27,6 +27,35 @@ public class ProfilesController : ControllerBase
        return BadRequest(e.Message);
      }
    }
+
+   
+     [HttpGet("{profileId}/keeps")]
+     public ActionResult<List<Keep>> GetAllKeep(string profileId)
+     {
+       try
+       {
+         List<Keep> keeps = _profilesService.GetAllKeepsByProfile(profileId);
+         return Ok(keeps);
+       }
+       catch (Exception e)
+       {
+         return BadRequest(e.Message);
+       }
+     }
+     [HttpGet("{profileId}/vaults")]
+     public ActionResult<List<Vault>> GetAllVaults(string profileId)
+     {
+       try
+       {
+         List<Vault> vaults = _profilesService.GetAllVaultsByProfile(profileId);
+         return Ok(vaults);
+       }
+       catch (Exception e)
+       {
+         return BadRequest(e.Message);
+       }
+     }
+   
  
   
 }

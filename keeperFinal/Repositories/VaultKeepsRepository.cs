@@ -29,14 +29,13 @@ public class VaultKeepsRepository : BaseRepository
                 JOIN keeps keep ON keep.id = vaultKeep.keepId
                 where vaultKeep.vaultId = @vaultId
                 GROUP BY vaultKeep.id
-             
-                     ; ";
+            
+                    ; ";
           return _db.Query<KeptKeep, Profile,KeptKeep>(sql, (keep, profile) =>
-           {
-             keep.Creator = profile;
-             
-             return keep;
-           }, new {vaultId}).ToList();
+        {
+            keep.Creator = profile;
+            return keep;
+          }, new {vaultId}).ToList();
     
   }
 

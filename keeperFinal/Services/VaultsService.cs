@@ -45,7 +45,9 @@ public class VaultsService{
   }
 
   internal List<Vault> GetAllVaults(string userId)
-  {
+  { 
+  
+  
    return _vaultsRepo.GetVaultsByAccount(userId);
   }
 

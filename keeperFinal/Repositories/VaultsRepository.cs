@@ -60,7 +60,10 @@ public class VaultsRepository : BaseRepository
                 JOIN accounts account ON account.id = vault.creatorId
                 where vault.creatorId = @userId
                 GROUP BY vault.id ;";
-          return _db.Query<Vault>(sql, new {userId}).ToList();
+          return _db.Query<Vault,Profile, Vault>(sql, (vault, profile) => {
+            vault.Creator = profile;
+            return vault;
+          },new {userId}).ToList();
     
   }
 
