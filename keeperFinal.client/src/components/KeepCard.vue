@@ -1,7 +1,7 @@
 <template>
   
-  <div class="card text-bg-dark my-3 elevation-5 fluid rounded">
-  <img :src="keep?.img" class="card-img img-fluid" alt="...">
+  <div class="card border-0 my-3 elevation-5 fluid rounded" @click="makeActive(keep)">
+  <img :src="keep?.img" class="card-img img-fluid" alt="" height="auto">
   <div class="card-img-overlay align-items-end d-flex justify-content-between text-shadow">
     <h5 class="card-title">{{keep?.name}}</h5>
 <img :src="keep.creator?.picture" class="person rounded-circle" alt="" height="40" width="40">
@@ -12,6 +12,8 @@
 
 
 <script>
+import { Modal } from 'bootstrap';
+import { AppState } from '../AppState';
 import { Keep } from '../models/Keep';
 
 export default {
@@ -19,7 +21,15 @@ export default {
     keep: {type: Keep, required: true}
   },
   setup(){
-    return {}
+    return {
+      makeActive(keep){
+        if (AppState.activeKeep != keep) {
+          AppState.activeKeep = keep
+          console.log(keep);
+          Modal.getOrCreateInstance("#detail").show()
+        }
+      }
+    }
   }
 }
 </script>

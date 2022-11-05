@@ -1,4 +1,5 @@
-import { Account } from "./Account";
+import { Profile } from "./Profile";
+
 
 export class Keep {
   constructor(data) {
@@ -9,7 +10,7 @@ export class Keep {
     this.name = data.name;
     this.description = data.description;
     this.creatorId = data.creatorId;
-    this.creator = new Account(data.creator);
+    this.creator = new Profile(data.creator);
     this.createdAt = new Date(data.createdAt).toLocaleDateString();
     this.updatedAt = new Date(data.updatedAt).toLocaleDateString();
   }

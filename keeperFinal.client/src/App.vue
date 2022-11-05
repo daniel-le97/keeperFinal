@@ -8,20 +8,27 @@
    <footer class="bg-dark text-light">
     Made with 💖 by CodeWorks
   </footer>
+  <!-- modals -->
+  <KeepModal id="detail">
+    <KeepModalDetail :keep="activeKeep" v-if="activeKeep"/>
+  </KeepModal>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import KeepModal from './components/KeepModal.vue'
+import KeepModalDetail from './components/KeepModalDetail.vue'
 import Navbar from './components/Navbar.vue'
 
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      activeKeep: computed(() => AppState.activeKeep)
     }
   },
-  components: { Navbar }
+  components: { Navbar, KeepModal, KeepModalDetail }
 }
 </script>
 <style lang="scss">
