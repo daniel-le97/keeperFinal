@@ -31,7 +31,7 @@ public class AccountController : ControllerBase
   }
 
   
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<ActionResult<List<Vault>>> GetAllVaults()
     {
       try
