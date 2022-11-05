@@ -3,10 +3,12 @@ namespace keeperFinal.Services;
 public class VaultsService
 {
   private readonly VaultsRepository _vaultsRepo;
+  private readonly VaultKeepsRepository _vaultKeepRepo;
 
-  public VaultsService(VaultsRepository vaultsRepo)
+  public VaultsService(VaultsRepository vaultsRepo, VaultKeepsRepository vaultKeepRepo)
   {
     _vaultsRepo = vaultsRepo;
+    _vaultKeepRepo = vaultKeepRepo;
   }
 
   internal Vault CreateVault(Vault vaultData)
@@ -33,22 +35,6 @@ public class VaultsService
     return vault;
 
   }
-  internal Vault GetVaultById(int vaultId)
-  {
-
-    Vault vault = _vaultsRepo.GetVaultById(vaultId);
-    if (vault == null)
-    {
-      throw new Exception("unable to find vault");
-    }
-    if (vault.IsPrivate == true)
-    {
-      throw new Exception("its private sorry");
-    }
-    return vault;
-
-  }
-
   internal Vault EditVault(Vault vaultData, int vaultId, string userId)
   {
     Vault original = GetVaultById(vaultId, userId);
@@ -82,5 +68,12 @@ public class VaultsService
 
     _vaultsRepo.DeleteVault(vaultId);
 
+  }
+
+  internal List<KeptKeep> GetAllKeptKeep(int vaultId, string userId)
+  {
+    Vault vault = GetVaultById(vaultId, userId);
+    List<KeptKeep> keeps = _vaultKeepRepo.GetAllKeepsByVault(vaultId);
+    return keeps;
   }
 }

@@ -13,35 +13,20 @@ public class VaultKeepsService
 
   internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
   {
-    return _vaultKeepRepo.CreateVaultKeep(vaultKeepData);
-  }
+     
+    VaultKeep vaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeepData);
+      if (vaultKeep.CreatorId == null)
+          {
+            throw new Exception("bad");
+          }
 
-  internal List<KeptKeep> GetAllKeptKeep(int vaultId)
-  {
-    Vault vault = _vaultsRepo.GetVaultById(vaultId);
-    if (vault.IsPrivate == true)
-    {
-      throw new Exception("private vault");
-    }
-    List<KeptKeep> keeps = _vaultKeepRepo.GetAllKeepsByVault(vaultId);
-    return keeps;
-  }
+          if (vaultKeep == null)
+          {
+            throw new Exception("no");
+          }
+    
+    return vaultKeep;
 
-  internal List<KeptKeep> GetAllKeptKeep(int vaultId, string userId)
-  {
-    Vault vault = _vaultsRepo.GetVaultById(vaultId);
-    var notCreator = vault.CreatorId != userId;
-    // var isPrivate = vault.IsPrivate
-    if (vault.IsPrivate == true)
-    {
-      if (notCreator)
-      {
-        throw new Exception("sorry this is private and you are not the owner");
-      }
-    }
-    List<KeptKeep> keeps = _vaultKeepRepo.GetAllKeepsByVault(vaultId);
-
-    return keeps;
   }
 
   internal void DeleteVaultKeep(int vaultKeepId, string userId)

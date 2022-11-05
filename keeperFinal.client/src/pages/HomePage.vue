@@ -1,44 +1,55 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <div class="container">
+    <div class="bricks mt-5">
+      <div class="min elevation-5" :class="keep? '': 'skeleton-loader'" v-for="(keep,index) in keeps" :key="keep.id">
+        <KeepCard :keep="keep" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { onMounted } from "vue";
+import { AppState } from "../AppState";
+import KeepCard from "../components/KeepCard.vue";
+import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
+
 export default {
   setup() {
-    return {}
-  }
-}
+    async function getAllKeeps() {
+      try {
+        await keepsService.getAllKeeps();
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
+    onMounted(() => {
+      getAllKeeps();
+    });
+    return {
+      keeps: computed(() => AppState.keeps)
+    };
+  },
+  components: { KeepCard },
+};
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.bricks {
+  columns: 4;
+  column-fill: balance;
+  
 }
+//when screen is 768px OR LESS
+@media only screen and (max-width: 768px){
+.bricks{
+  columns: 2;
+}
+}
+.min {
+  min-height: 5vh;
+}
+
 </style>

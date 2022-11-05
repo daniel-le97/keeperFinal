@@ -13,8 +13,8 @@ public class VaultKeepsController : ControllerBase
     _vaultKeepService = vaultKeepService;
   }
 
-  [Authorize]
   [HttpPost]
+  [Authorize]
   public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultKeepData)
   {
     try

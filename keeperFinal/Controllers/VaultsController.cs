@@ -57,7 +57,7 @@ public class VaultsController : ControllerBase
           try
           {
             Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-            Vault vault = _vaultsService.EditVault(vaultData,vaultId, userInfo.Id);
+            Vault vault = _vaultsService.EditVault(vaultData,vaultId, userInfo?.Id);
             return Ok(vault);
           }
           catch (Exception e)
@@ -74,11 +74,6 @@ public class VaultsController : ControllerBase
         try
         {
           Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-          if (userInfo == null)
-          {
-            Vault dif = _vaultsService.GetVaultById(vaultId);
-            return Ok(dif);
-          }
           Vault vault = _vaultsService.GetVaultById(vaultId, userInfo?.Id);
           return Ok(vault);
         }
@@ -95,12 +90,7 @@ public class VaultsController : ControllerBase
           try
           {
             Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-              if (userInfo == null)
-                  {
-                   List<KeptKeep> keepers = _vaultKeepsService.GetAllKeptKeep(vaultId);
-                   return Ok(keepers);
-                  }
-            List<KeptKeep> keeps = _vaultKeepsService.GetAllKeptKeep(vaultId, userInfo.Id);
+            List<KeptKeep> keeps = _vaultsService.GetAllKeptKeep(vaultId, userInfo?.Id);
             return Ok(keeps);
           }
           catch (Exception e)
