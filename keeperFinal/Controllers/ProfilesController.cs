@@ -13,18 +13,20 @@ public class ProfilesController : ControllerBase
     _profilesService = profilesService;
   }
 
-  [HttpGet("{profileId}")]
-    public ActionResult<Profile> GetProfileById(int profileId)
-    {
-      try
-      {
-        Profile profile = _profilesService.GetProfileById(profileId);
-        return Ok(profile);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+   [HttpGet("{profileId}")]
+ 
+   public ActionResult<Profile> GetProfileById(string profileId)
+   {
+     try
+     {
+       Profile profile = _profilesService.GetProfileById(profileId);
+       return Ok(profile);
+     }
+     catch (Exception e)
+     {
+       return BadRequest(e.Message);
+     }
+   }
+ 
   
 }

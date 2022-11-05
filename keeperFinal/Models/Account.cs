@@ -1,6 +1,6 @@
 namespace keeperFinal.Models;
 
-public class Profile : IDbItem<string>
+public class Profile 
 {
   public string Id { get; set; }
   public DateTime CreatedAt { get; set; }

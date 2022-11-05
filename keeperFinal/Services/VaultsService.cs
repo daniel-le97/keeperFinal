@@ -44,6 +44,11 @@ public class VaultsService{
     return _vaultsRepo.EditVault(original);
   }
 
+  internal List<Vault> GetAllVaults(string userId)
+  {
+   return _vaultsRepo.GetVaultsByAccount(userId);
+  }
+
   internal void DeleteVault(int vaultId, string userId)
   {
     Vault vault = GetVaultById(vaultId);

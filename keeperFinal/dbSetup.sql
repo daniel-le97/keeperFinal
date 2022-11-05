@@ -8,7 +8,7 @@ CREATE TABLE
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
         picture varchar(255) COMMENT 'User Picture',
-        coverImg VARCHAR(500),
+        coverImg VARCHAR(500)
     ) default charset utf8 COMMENT '';
 ALTER TABLE accounts ADD coverImg VARCHAR(500);
 CREATE TABLE

@@ -8,24 +8,10 @@ public class ProfilesService{
     _ProfilesRepository = profilesRepository;
   }
 
-  internal Profile GetProfileById(int profileId)
+  internal Profile GetProfileById(string profileId)
   {
    
   Profile profile =  _ProfilesRepository.GetProfileById(profileId);
-    if (profile == null)
-        {
-          throw new Exception("bad id");
-        }
-
-          if (profile.Id == "0")
-              {
-                throw new Exception("bad");
-              }
-        
-        
-
-        
-        
   
   return profile;
   

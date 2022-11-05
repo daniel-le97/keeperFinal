@@ -51,6 +51,19 @@ public class VaultsRepository : BaseRepository
         return GetVaultById(original.Id);
   }
 
+  internal List<Vault> GetVaultsByAccount(string userId)
+  {
+      var sql = @"SELECT 
+                vault.*,
+                account.*
+                FROM vaults vault
+                JOIN accounts account ON account.id = vault.creatorId
+                where vault.creatorId = @userId
+                GROUP BY vault.id ;";
+          return _db.Query<Vault>(sql, new {userId}).ToList();
+    
+  }
+
   internal void DeleteVault(int vaultId)
   {
       var sql = @"DELETE FROM vaults WHERE id = @vaultId;";
