@@ -16,7 +16,7 @@ public class VaultsService
     return _vaultsRepo.CreateVault(vaultData);
   }
 
-  internal Vault GetVaultById(int vaultId, string userId)
+  public Vault GetVaultById(int vaultId, string userId)
   {
     Vault vault = _vaultsRepo.GetVaultById(vaultId);
    

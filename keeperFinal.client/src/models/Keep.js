@@ -13,5 +13,6 @@ export class Keep {
     this.creator = new Profile(data.creator);
     this.createdAt = new Date(data.createdAt).toLocaleDateString();
     this.updatedAt = new Date(data.updatedAt).toLocaleDateString();
+    this.isKept = false
   }
 }

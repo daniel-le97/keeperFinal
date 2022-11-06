@@ -4,18 +4,20 @@ public class VaultKeepsService
 {
   private readonly VaultKeepsRepository _vaultKeepRepo;
   private readonly VaultsRepository _vaultsRepo;
+  private readonly VaultsService _vs;
 
-  public VaultKeepsService(VaultKeepsRepository vaultKeepRepo, VaultsRepository vaultsRepo)
+  public VaultKeepsService(VaultKeepsRepository vaultKeepRepo, VaultsRepository vaultsRepo, VaultsService vs)
   {
     _vaultKeepRepo = vaultKeepRepo;
     _vaultsRepo = vaultsRepo;
+    _vs = vs;
   }
 
   internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
   {
-     
+     Vault vault = _vs.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
     VaultKeep vaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeepData);
-      if (vaultKeep.CreatorId == null)
+      if (vaultKeep.CreatorId != vault.CreatorId)
           {
             throw new Exception("bad");
           }
@@ -54,5 +56,9 @@ public class VaultKeepsService
 
   }
 
-
+  internal List<VaultKeep> GetAllVaultKeep(string userId)
+  {
+    List<VaultKeep> vaultKeep = _vaultKeepRepo.getAllVaultKeep(userId);
+    return vaultKeep;
+  }
 }
