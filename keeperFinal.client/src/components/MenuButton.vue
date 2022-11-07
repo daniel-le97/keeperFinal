@@ -8,6 +8,7 @@
 			<li><a href=""><i class="fa fa-instagram"></i></a></li>
 			<li><a href=""><i class="fa fa-facebook"></i></a></li>
 			<li><a href=""><i class="fa fa-facebook"></i></a></li>
+			<li><a href=""><i class="fa fa-facebook"></i></a></li>
 			<!-- <li><a href=""><i class="fa fa-facebook"></i></a></li> -->
 			<!-- <li><a href=""><i class="mdi mdi-heart fs-1 text-white"></i></a></li> -->
 		</ul>
@@ -24,6 +25,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+li::marker{
+  content:'';
+}
+
 
 nav {
   position: absolute;
@@ -32,6 +37,7 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
  
 
   .toggle {
@@ -115,6 +121,7 @@ nav {
     position: absolute;
     top: 20%;
     left: 50%;
+   
   }
   li {
     transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
@@ -126,7 +133,7 @@ nav {
       line-height: 42px;
       background-color: #1da2ff;
       border-radius: 50%;
-      top: 70%;
+      top: 40%;
       left: 50%;
       transform: translate(-100%, -140%);
       transition: background-color 0.5s;
