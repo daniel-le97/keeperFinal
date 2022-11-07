@@ -17,12 +17,16 @@
   <KeepModal id="vaultForm">
     <VaultForm/>
   </KeepModal>
+  <KeepModal id="accountForm">
+    <AccountForm/>
+  </KeepModal>
   <!-- modals -->
 </template>
 
 <script>
 import { computed, watchEffect } from 'vue'
 import { AppState } from './AppState'
+import AccountForm from './components/AccountForm.vue'
 import KeepForm from './components/KeepForm.vue'
 import KeepModal from './components/KeepModal.vue'
 import KeepModalDetail from './components/KeepModalDetail.vue'
@@ -41,7 +45,7 @@ export default {
       activeKeep: computed(() => AppState.activeKeep)
     }
   },
-  components: { Navbar, KeepModal, KeepModalDetail, MenuButton, KeepForm, VaultForm }
+  components: { Navbar, KeepModal, KeepModalDetail, MenuButton, KeepForm, VaultForm, AccountForm }
 }
 </script>
 <style lang="scss">

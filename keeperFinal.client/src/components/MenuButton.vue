@@ -10,7 +10,7 @@
 			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="getVaultForm()"></i></a></li>
-			<li><a href=""><i class="fa fa-facebook"></i></a></li>
+			<li><a href="#/account"><i class="fa fa-facebook"></i></a></li>
 
 		</ul>
 	</div>
