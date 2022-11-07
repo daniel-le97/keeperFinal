@@ -1,24 +1,36 @@
 <template>
-<div class="m-3">
-    <div class="card-container">
+<!-- <div class="m-3">
+    <div class="card-container ">
      
-      <div class="top-card">
-        <button @click="editAccount()">hello</button>
+      <div class="top-card rounded position-relative">
+        <i class="mdi mdi-dots-horizontal fs-1 text-danger dots" @click="editAccount()"></i>
         <img :src="account?.picture" alt="icon" />
       </div>
-      <div class="bottom-card d-flex justify-content-center pt-5">
+      <div class="bottom-card d-flex justify-content-center pt-5 ">
         <h1>{{ account?.name }}</h1>
       </div>
     </div>
-  </div>
+  </div> -->
   
-  <!-- <div class="container">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <ProfileDetail :profile="profile" v-if="profile" />
+              <div class="m-3">
+    <div class="card-container ">
+     
+      <div class="top-card rounded position-relative">
+        <i class="mdi mdi-dots-horizontal fs-1 text-danger dots" @click="editAccount()"></i>
+        <img :src="account?.picture" alt="icon" />
+      </div>
+      <div class="bottom-card d-flex justify-content-center pt-5 ">
+        <h1>{{ account?.name }}</h1>
+      </div>
+    </div>
+  </div>
+              <!-- <ProfileDetail :profile="profile" v-if="profile" /> -->
             </div>
           </div>
          
@@ -45,7 +57,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -102,7 +114,7 @@ export default {
       vaults: computed(() => AppState.userVaults),
       imgC: computed (() => `url(${AppState.account?.coverImg})`),
        editAccount(){
-        console.log('HI');
+        
         Modal.getOrCreateInstance('#accountForm').show()
       }
     };
@@ -111,6 +123,12 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.dots{
+  position: absolute;
+  z-index: 10;
+  bottom: -2.5rem;
+  right: 0;
+}
 .card-container {
   height: 300px;
   border-radius: 12px;

@@ -7,25 +7,25 @@ import { api } from "./AxiosService";
 
 class VaultsService {
   async getVaultById(vaultId){
-    try {
-      const res = await api.get(`api/vaults/${vaultId}`)
-      AppState.activeVault = new Vault(res.data)
-      } catch (error) {
-        console.log(error);
-        router.push({name: 'Home'})
-      }
-    // console.log(res.data);
+    // try {
+    // } catch (error) {
+    //   // console.log(error);
+    //   router.push({name: 'Home'})
+    // }
+    const res = await api.get(`api/vaults/${vaultId}`)
+    // AppState.activeVault = new Vault(res.data)
+    console.log(res.data);
     // if (!res) {
     //   router.push({name: 'Home'})
     // }
   }
   async getKeepsInVault(vaultId) {
-    try {
+    
       const res = await api.get(`api/vaults/${vaultId}/keeps`);
-      AppState.keeps = res.data.map((k) => new Keep(k));
-    } catch (error) {
-      router.push({name: 'Home'})
-    }
+      console.log(res.data);
+      // AppState.keeps = res.data.map((k) => new Keep(k));
+      
+   
     // console.log(AppState.keeps, '[vaultsService]');
   }
   async createVault(vaultData){
@@ -37,6 +37,10 @@ class VaultsService {
   async deleteVault(vaultId){
     const res  =  await api.delete(`api/vaults${vaultId}`)
     
+  }
+  async deleteVaultKeep(vaultKeepId){
+    const res = await api.delete(`api/vaultKeeps/${vaultKeepId}`)
+    console.log(res.data);
   }
   //
 }

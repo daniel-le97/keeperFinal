@@ -23,6 +23,7 @@ public class VaultKeepsRepository : BaseRepository
     var sql = @"SELECT 
                 vaultKeep.*,
                 vaultKeep.id AS VaultKeepId,
+                vaultKeep.creatorId AS VaultKeepCreatorId,
                 keep.*,
                 account.*
                 FROM vaultKeeps vaultKeep

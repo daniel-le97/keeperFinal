@@ -32,7 +32,7 @@
               type="url"
               class="form-control"
               id="recipeImg"
-              v-model="editable.CoverImg"
+              v-model="editable.coverImg"
               required
             />
           </div>
@@ -60,12 +60,13 @@
             <button type="submit" class="btn btn-primary">submit Keep</button>
           </div>
         </div>
-        <div class="col-md-6 d-flex justify-content-center p-0">
-          <div class="bg-dark img-card rounded">
+        <div class="col-md-6 d-flex justify-content-center p-0 rounded"
+            >
+          <div class="bg-dark img-card rounded" :class="cover? 'cover':''">
             <img
               :src="editable.picture"
               alt=""
-              class="img-fluid"
+              class="img-fluid rounded-circle"
               v-if="editable.picture"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
@@ -115,6 +116,7 @@ export default {
         }
       },
       keepForm: computed(() => AppState.keepForm),
+      cover: computed(() => `url(${editable.value.coverImg})`),
       editable,
     };
   },
@@ -122,6 +124,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cover{
+  background-image: v-bind(cover);
+}
 .img-card {
   min-height: 20rem;
   width: 20rem;

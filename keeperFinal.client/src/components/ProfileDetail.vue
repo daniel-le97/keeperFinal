@@ -24,7 +24,7 @@ export default {
   },
   setup(props) {
     return {
-      img: computed(() => `url(${props.profile.picture})`),
+      img: computed(() => `url(${props.profile.coverImg})`),
     };
   },
 };

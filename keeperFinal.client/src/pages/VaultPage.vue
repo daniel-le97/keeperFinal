@@ -78,7 +78,7 @@ export default {
     async function getVaultById() {
       try {
         await vaultsService.getVaultById(route.params.id);
-      console.log(AppState.activeVault);
+      // console.log(AppState.activeVault);
       } catch (error) {
         router.push({name: 'Home'})
         Pop.error(error);

@@ -28,33 +28,41 @@
         </div>
         <div class="d-flex justify-content-between">
           <!--  inject vault stuff here TODO -->
-          <div class="dropdown open">
-            <a
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="triggerId"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              {{ pick ? pick.name : "vaults" }}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="triggerId">
+          <div class="d-flex gap-2" v-if="!routeVault">
+            <div class="dropdown open">
               <a
-                class="dropdown-item"
-                v-for="v in vaults"
-                @click="pickVault(v)"
-                >{{ v?.name }}</a
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="triggerId"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
+                {{ pick ? pick.name : "vaults" }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="triggerId">
+                <a
+                  class="dropdown-item"
+                  v-for="v in vaults"
+                  @click="pickVault(v)"
+                  >{{ v?.name }}</a
+                >
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              @click="saveKeep(keep)"
+              :disabled="!pick"
+            >
+              save
+            </button>
+          </div>
+          <div v-else>
+            <div @click="deleteVaultKeep()">
+              remove
             </div>
           </div>
-          <button
-            class="btn btn-primary"
-            @click="saveKeep(keep)"
-            :disabled="!pick"
-          >
-            save
-          </button>
+
           <div>
             <div>
               <img
@@ -77,7 +85,7 @@ import { computed } from "@vue/reactivity";
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 
-import { RouterLink } from "vue-router";
+import { RouterLink, useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { router } from "../router";
@@ -91,28 +99,39 @@ export default {
     keep: { type: Keep, required: true },
   },
   setup(props) {
+    const route = useRoute()
     return {
+      routeVault: computed(() => route.name == 'Vault'),
       owner: computed(() => AppState.account?.id == props.keep.creatorId),
       vaults: computed(() => AppState.userVaults),
-      kept: computed(() =>
-        AppState.vaultKeeps.find(
+      kept: computed(() =>{
+       let kept =  AppState.vaultKeeps.find(
           (v) => v.keepId == props.keep.id && v.vaultId == AppState.vaultPick.id
         )
-      ),
+        return kept
+    }),
       pick: computed(() => AppState.vaultPick),
       pickVault(v) {
         AppState.vaultPick = v;
       },
       propImg: computed(() => `url(${props.keep?.img})`),
-      async deleteKeep(keep){
+      async deleteKeep(keep) {
         try {
-          const yes = await Pop.confirm()
-                if (!yes) {
-                  return
-                }
-            await keepsService.deleteKeep(keep.id)
-            Pop.success(`${keep.name} removed`)
-            Modal.getOrCreateInstance("#detail").hide()
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+          await keepsService.deleteKeep(keep.id);
+          Pop.success(`${keep.name} removed`);
+          Modal.getOrCreateInstance("#detail").hide();
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
+      async deleteVaultKeep(){
+        try {
+                console.log(this.kept);
+            // await vaultsService.deleteVaultKeep(this.kept.id)
           } catch (error) {
             Pop.error(error)
           }

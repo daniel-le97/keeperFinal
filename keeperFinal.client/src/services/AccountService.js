@@ -10,7 +10,7 @@ class AccountService {
     try {
       const res = await api.get('/account')
       AppState.account =  new Account(res.data)
-      console.log(AppState.account);
+      // console.log(AppState.account);
     } catch (err) {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
@@ -29,8 +29,8 @@ class AccountService {
     const res = await api.get('account/vaultKeeps')
    AppState.vaultKeeps =  res.data.map(v => new VaultKeep(v))
   //  let bestVaults = AppState.vaultKeeps.sort(v => v.vaultId)
-  console.log(AppState.vaultKeeps.length);
-   const count = [];
+  // console.log(AppState.vaultKeeps.length);
+  //  const count = [];
 
     // for (const vaultKeep of AppState.vaultKeeps) {
     //   count.push([vaultKeep, AppState.vaultKeeps[vaultKeep]])
@@ -41,7 +41,7 @@ class AccountService {
   //  AppState.vaultKeeps.forEach((v) => {
   //    count[v,v.vaultId] = (count[v, v.vaultId] || 0) + 1;
   //  });
-   console.log(count);
+  //  console.log(count);
   }
 }
 

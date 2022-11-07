@@ -10,7 +10,8 @@
 			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="getVaultForm()"></i></a></li>
-			<li><a href="#/account"><i class="fa fa-facebook"></i></a></li>
+			<li><a href="#/account" class="d-flex justify-content-center align-items-center"><img :src="profileImg? profileImg: ''" height="40" alt="" class="rounded-circle"></a></li>
+			<!-- <li><a href="#/account"><i class="mdi mdi-account-edit-outline fs-1"></i></a></li> -->
 
 		</ul>
 	</div>
@@ -22,6 +23,7 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { Modal } from 'bootstrap';
+
 import { AppState } from '../AppState';
 import { router } from '../router';
 import { profilesService } from '../services/ProfilesService';
@@ -30,7 +32,7 @@ import Pop from '../utils/Pop';
 export default {
   setup() {
     return {
-      // profile: computed (() => AppState.account.id)
+      profileImg: computed (() => AppState.account.picture),
       getKeepForm(){
         AppState.keepForm = 1
         Modal.getOrCreateInstance('#keepForm').show()

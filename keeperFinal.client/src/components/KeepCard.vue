@@ -1,12 +1,13 @@
 <template>
   <div
-    class="card border-0 my-3 elevation-5 fluid rounded"
+    class="card border-0 my-3 elevation-5 fluid rounded position-relative"
     @click="makeActive(keep)"
-  >
+    >
     <img :src="keep?.img" class="card-img img-fluid" alt="" height="auto" />
     <div
-      class="card-img-overlay align-items-end d-flex justify-content-between text-shadow"
+    class="card-img-overlay align-items-end d-flex justify-content-between text-shadow "
     >
+    <i class="mdi mdi-hospital mdi-rotate-45 position-absolute move fs-5" @click="deleteVaultKeep()"></i>
       <i class="mdi mdi-heart text-danger fs-1" v-if="vaulted"></i>
 
       <h5 class="card-title">{{ keep?.name }}</h5>
@@ -56,12 +57,26 @@ export default {
           Pop.error(error);
         }
       },
+       async deleteVaultKeep(){
+        try {
+            await vau
+          } catch (error) {
+            console.error('[]',error)
+            Pop.error(error)
+          }
+       
+        }
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.move{
+  top: -9px;
+  right: -7px;
+  z-index: 25;
+}
 .text-shadow {
   color: aliceblue;
   text-shadow: 1px 1px black, 0px 0px 5px salmon;
