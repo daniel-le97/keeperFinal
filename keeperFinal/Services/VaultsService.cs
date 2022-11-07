@@ -19,19 +19,20 @@ public class VaultsService
   public Vault GetVaultById(int vaultId, string userId)
   {
     Vault vault = _vaultsRepo.GetVaultById(vaultId);
+    var notCreator = vault.CreatorId != userId;
+    var IsPrivate = vault.IsPrivate == true;
    
     if (vault == null)
     {
       throw new Exception("unable to find vault");
     }
-    var notCreator = vault.CreatorId != userId;
-    if (vault.IsPrivate == true)
-    {
-      if (notCreator)
+    // if (vault.IsPrivate == true)
+    // {
+    // }
+      if (notCreator && IsPrivate)
       {
         throw new Exception("sorry this is private and you are not the owner");
       }
-    }
     return vault;
 
   }

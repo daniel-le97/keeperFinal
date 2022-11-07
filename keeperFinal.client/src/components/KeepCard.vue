@@ -47,6 +47,7 @@ export default {
       async makeActive(keep) {
         try {
           AppState.activeKeep = keep;
+          // console.log(keep);
           if (!this.keepOwner) {
             await keepsService.getKeepById(keep.id);
           }

@@ -1,30 +1,45 @@
 <template>
+  <div class="fix">
 <nav>
 	<div class="toggle">
 		<input type="checkbox">
     <span class="btn"></span>
     <ul>
-			<li><a href=""><i class="fa fa-vimeo"></i></a></li>
-			<li><a href=""><i class="fa fa-instagram"></i></a></li>
+			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
+			<li><a href="#/account" class="text-center"><i class="mdi mdi-account fs-1"></i></a></li>
+			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
+			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="$emit('getkeepForm')"></i></a></li>
 			<li><a href=""><i class="fa fa-facebook"></i></a></li>
-			<li><a href=""><i class="fa fa-facebook"></i></a></li>
-			<li><a href=""><i class="fa fa-facebook"></i></a></li>
-			<!-- <li><a href=""><i class="fa fa-facebook"></i></a></li> -->
-			<!-- <li><a href=""><i class="mdi mdi-heart fs-1 text-white"></i></a></li> -->
+
 		</ul>
 	</div>
 </nav>
+  </div>
+
 </template>
 
 <script>
+import { Modal } from 'bootstrap';
+import { AppState } from '../AppState';
+
 export default {
   setup() {
-    return {};
+    return {
+      getKeepForm(){
+        AppState.modalForm = 1
+        Modal.getOrCreateInstance('#form').show()
+      }
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.fix{
+  position: fixed;
+  bottom: 90px;
+  right: 100px;
+}
 li::marker{
   content:'';
 }
@@ -75,7 +90,7 @@ nav {
 
     &:hover {
       ~ .btn {
-        background-color: #1782cc;
+        background-color:  rgb(238, 77, 52);
       }
     }
   }
@@ -84,7 +99,7 @@ nav {
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #1da2ff;
+    background-color: rgb(250,119,100);
     border-radius: 50%;
     cursor: pointer;
     transition: transform 1.25s cubic-bezier(0.8, 0, 0.2, 1),
@@ -107,14 +122,14 @@ nav {
     &:after {
       width: 40px;
       height: 8px;
-      top: 56px;
-      left: 40px;
+      top: 35px;
+      left: 20px;
     }
     &:before {
       width: 8px;
       height: 40px;
-      top: 40px;
-      left: 56px;
+      top: 20px;
+      left: 35px;
     }
   }
   ul {
@@ -131,7 +146,7 @@ nav {
       width: 40px;
       height: 40px;
       line-height: 42px;
-      background-color: #1da2ff;
+      background-color:rgb(250,119,100);
       border-radius: 50%;
       top: 40%;
       left: 50%;

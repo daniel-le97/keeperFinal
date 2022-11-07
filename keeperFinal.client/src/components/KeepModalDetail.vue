@@ -11,7 +11,7 @@
             <span>{{ keep?.views }}</span>
           </div>
           <div class="d-flex gap-2">
-            <span class="border border-dark px-1 border"> K </span>
+            <img src="../assets/img/Logo (1).png" alt="" class="no-select">
             <span>{{ keep?.kept }}</span>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .img {
   min-height: 75vh;
   // object-fit: cover;
@@ -146,6 +146,7 @@ export default {
   background-repeat: no-repeat;
   background-image: v-bind(propImg);
 }
+
 body.swal2-shown > [aria-hidden="true"] {
   transition: 0.1s filter;
   filter: blur(4px);

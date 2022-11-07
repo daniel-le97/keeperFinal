@@ -1,13 +1,19 @@
 <template>
-  <div class="container" v-if="keeps">
-    <div class="bricks mt-5 mb-5">
-      <div
-        class="min elevation-5"
-        :class="keep ? '' : 'skeleton-loader'"
-        v-for="(keep, index) in keeps"
-        :key="keep.id"
-      >
-        <KeepCard :keep="keep" />
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="container" v-if="keeps">
+          <div class="bricks mt-5 mb-5">
+            <div
+              class="min elevation-5"
+              :class="keep ? '' : 'skeleton-loader'"
+              v-for="(keep, index) in keeps"
+              :key="keep.id"
+            >
+              <KeepCard :keep="keep" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -32,28 +38,24 @@ export default {
         Pop.error(error);
       }
     }
-  
-      function infiniteScroll() {
+
+    function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
-         
+
         if (bottomOfWindow) {
-         console.log('hi');
+          console.log("hi");
         }
       };
     }
-    onUnmounted(() => {
-      
-    });
+    onUnmounted(() => {});
     onMounted(() => {
       getAllKeeps();
-      infiniteScroll()
-    
+      infiniteScroll();
     });
     return {
-     
       keeps: computed(() => AppState.keeps),
     };
   },
