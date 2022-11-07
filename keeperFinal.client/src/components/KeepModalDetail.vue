@@ -11,7 +11,7 @@
             <span>{{ keep?.views }}</span>
           </div>
           <div class="d-flex gap-2">
-            <img src="../assets/img/Logo (1).png" alt="" class="no-select">
+            <img src="../assets/img/Logo (1).png" alt="" class="no-select" />
             <span>{{ keep?.kept }}</span>
           </div>
         </div>
@@ -75,6 +75,7 @@ import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { router } from "../router";
 import { keepsService } from "../services/KeepsService";
+import { swalsService } from "../services/SwalService";
 import { vaultsService } from "../services/VaultsService";
 import Pop from "../utils/Pop";
 
@@ -99,25 +100,17 @@ export default {
       async saveKeep(keep) {
         try {
           if (this.kept) {
-            const yes = await Swal.fire({
-              title: "duplicate keep",
-              text: `${this.pick.name} already has ${keep.name}`,
-              imageUrl: `${this.pick.coverImg}`,
-              imageWidth: 400,
-              imageHeight: 200,
-              imageAlt: "Custom image",
-              showCloseButton: true,
-              showCancelButton: true,
-              reverseButtons: true,
-              focusConfirm: true,
-              confirmButtonText: '<i class="mdi mdi-keep"></i> keep anyway',
-              confirmButtonAriaLabel: "keep",
-            });
-            if (!yes.isConfirmed) {
+            const yes = await swalsService.imagePop(
+              this.pick.coverImg,
+              "undo?",
+              "center",
+              `${this.pick.name} already has ${keep.name}`
+            );
+            console.log(yes);
+            if (yes) {
               return;
             }
           }
-
           let vaultKeep = { vaultId: this.pick.id, keepId: keep.id };
           await keepsService.saveKeep(vaultKeep);
           Pop.success(`${keep.name} saved to  ${this.pick.name}`);

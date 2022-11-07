@@ -7,16 +7,17 @@
     <MenuButton/>
     <!-- <button class="buttonFix box">+</button> -->
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
-  </footer>
   <!-- modals -->
   <KeepModal id="detail">
     <KeepModalDetail :keep="activeKeep" v-if="activeKeep"/>
   </KeepModal>
-  <KeepModal id="form">
+  <KeepModal id="keepForm">
     <KeepForm/>
   </KeepModal>
+  <KeepModal id="vaultForm">
+    <VaultForm/>
+  </KeepModal>
+  <!-- modals -->
 </template>
 
 <script>
@@ -27,6 +28,7 @@ import KeepModal from './components/KeepModal.vue'
 import KeepModalDetail from './components/KeepModalDetail.vue'
 import MenuButton from './components/MenuButton.vue'
 import Navbar from './components/Navbar.vue'
+import VaultForm from './components/VaultForm.vue'
 
 export default {
   setup() {
@@ -39,7 +41,7 @@ export default {
       activeKeep: computed(() => AppState.activeKeep)
     }
   },
-  components: { Navbar, KeepModal, KeepModalDetail, MenuButton, KeepForm }
+  components: { Navbar, KeepModal, KeepModalDetail, MenuButton, KeepForm, VaultForm }
 }
 </script>
 <style lang="scss">
@@ -58,11 +60,5 @@ export default {
   clip-path: circle(25%);
 }
 
-
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
-}
 
 </style>

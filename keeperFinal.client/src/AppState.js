@@ -22,7 +22,8 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   activeProfile:null,
   vaultKeeps: [],
-  modalForm:0
+  keepForm:0,
+  vaultForm:0
 })
 
 class State extends EventEmitter {

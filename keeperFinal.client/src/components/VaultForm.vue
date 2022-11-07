@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="keepForm == 0 ? handleKeepSubmit() : handleKeepEdit()">
+  <form @submit.prevent="vaultForm == 0 ? handleVaultSubmit() : handleVaultEdit()">
     <!--  -->
     <div class="container">
       <div class="row">
@@ -22,8 +22,18 @@
               type="url"
               class="form-control"
               id="recipeImg"
-              v-model="editable.img"
+              v-model="editable.coverImg"
               required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="vaultP" class="form-label">make it private</label>
+            <input
+              type="checkbox"
+              class="form-control"
+              :class="editable.isPrivate? 'bg-primary':''"
+              id="vaultP"
+              v-model="editable.isPrivate"
             />
           </div>
           <div class="mb-3">
@@ -47,16 +57,16 @@
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary">submit Keep</button>
+            <button type="submit" class="btn btn-primary">submit Vault</button>
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-center p-0">
           <div class="bg-dark img-card rounded">
             <img
-              :src="editable.img"
+              :src="editable.coverImg"
               alt=""
               class="img-fluid"
-              v-if="editable.img"
+              v-if="editable.coverImg"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
           </div>
@@ -71,7 +81,7 @@ import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { ref } from "vue";
 import Pop from "../utils/Pop";
-import { keepsService } from "../services/KeepsService";
+import { vaultsService} from "../services/VaultsService";
 
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
@@ -81,21 +91,24 @@ export default {
   setup() {
     const editable = ref({});
     return {
-      async handleKeepSubmit() {
+      async handleVaultSubmit() {
         try {
-          const keep = await keepsService.createKeep(editable.value);
-          const yes = await swalsService.imagePop(editable.value.img, "undo", 'top-end', 'keep created undo?' );
+          console.log(editable.value);
+          // return
+          const vault = await vaultsService.createVault(editable.value);
+          const yes = await swalsService.imagePop(editable.value.coverImg, "undo", 'top-end', 'Vault created undo?' );
           if (yes) {
-            await keepsService.deleteKeep(keep.id);
-            Pop.success(`${keep.name} deleted`);
+            await vaultsService.deleteVault(vault.id);
+            Pop.success(`${vault.name} deleted`);
           }
+          Pop.success(`${vault.name} added`)
           Modal.getOrCreateInstance("#keepForm").hide();
         } catch (error) {
           console.error("[]", error);
           Pop.error(error);
         }
       },
-      keepForm: computed(() => AppState.keepForm),
+      vaultForm: computed(() => AppState.vaultForm),
       editable,
     };
   },

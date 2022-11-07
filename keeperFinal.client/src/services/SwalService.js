@@ -1,11 +1,18 @@
 import Swal from "sweetalert2";
+
 class SwalsService {
-  async undo(url, text) {
+  /**
+   * @param {string } url An image url.
+   * @param {string} title The title text.
+   * @param {string} btnText The body text.
+   * @param {'top' | 'top-start' | 'top-end' | 'center' | 'center-start' | 'center-end' | 'bottom' | 'bottom-start' | 'bottom-end'} position
+   */
+  async imagePop(url, btnText, position, title) {
     let timerInterval;
     const yes = await Swal.fire({
-      title: "Auto close alert!",
+      title:`${title}` ,
       imageUrl: `${url}`,
-      position: "top-end",
+      position: `${position}`,
       imageWidth: 400,
       imageHeight: 200,
       imageAlt: "Custom image",
@@ -14,15 +21,20 @@ class SwalsService {
       reverseButtons: true,
       showConfirmButton: true,
       focusConfirm: true,
-      confirmButtonText: `${text}`,
+      confirmButtonText: `${btnText}`,
+      cancelButtonText: 'send!',
       confirmButtonAriaLabel: "undo",
-      timer: 4000,
+      timer: 2500,
       timerProgressBar: true,
+      didOpen: (showConfirmButton) => {
+        showConfirmButton.addEventListener("mouseenter", Swal.stopTimer);
+        showConfirmButton.addEventListener("mouseleave", Swal.resumeTimer);
+      },
       willClose: () => {
         clearInterval(timerInterval);
       },
     });
-    return yes.isConfirmed
+    return yes.value
   }
 }
 export const swalsService = new SwalsService();

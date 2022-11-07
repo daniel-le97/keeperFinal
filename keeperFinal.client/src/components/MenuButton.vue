@@ -8,7 +8,7 @@
 			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
 			<li><a href="#/account" class="text-center"><i class="mdi mdi-account fs-1"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
-			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="$emit('getkeepForm')"></i></a></li>
+			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="getVaultForm()"></i></a></li>
 			<li><a href=""><i class="fa fa-facebook"></i></a></li>
 
 		</ul>
@@ -26,8 +26,11 @@ export default {
   setup() {
     return {
       getKeepForm(){
-        AppState.modalForm = 1
-        Modal.getOrCreateInstance('#form').show()
+        
+        Modal.getOrCreateInstance('#keepForm').show()
+      },
+      getVaultForm(){
+        Modal.getOrCreateInstance('#vaultForm').show()
       }
     };
   },

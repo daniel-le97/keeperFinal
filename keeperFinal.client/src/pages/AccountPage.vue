@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <ProfileDetail :profile="profile" v-if="profile" />
+              <!-- <ProfileDetail :profile="profile" v-if="profile" /> -->
             </div>
           </div>
           <!--  -->
@@ -47,15 +47,19 @@ import KeepCard from "../components/KeepCard.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { accountService } from "../services/AccountService";
 import { profilesService } from "../services/ProfilesService";
+import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 
 export default {
   setup() {
-    const route = useRoute();
-    onMounted(() => {
-      // getProfile();
+    
+    // onMounted(() => {
+    //   // getProfile();
+    // });
+    onAuthLoaded(() => {
       getAccountKeeps();
       getAccountVaults();
-    });
+
+    })
     // async function getAccountDetails() {
     //   try {
     //     await accountService.getProfile(route.params.id);
@@ -65,22 +69,22 @@ export default {
     // }
     async function getAccountKeeps() {
       try {
-        await profilesService.getProfileKeeps(route.params.id);
+        await profilesService.getProfileKeeps(AppState.account.id);
       } catch (error) {
         Pop.error(error);
       }
     }
     async function getAccountVaults() {
       try {
-        await accountService.getAccountVaults(route.params.id);
+        await accountService.getAccountVaults(AppState.account.id);
       } catch (error) {
         Pop.error(error);
       }
     }
     return {
-      profile: computed(() => AppState.activeProfile),
+      // profile: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults),
+      vaults: computed(() => AppState.userVaults),
     };
   },
   components: { ProfileDetail, KeepCard, VaultCard },

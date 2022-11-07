@@ -15,20 +15,17 @@ public class VaultKeepsService
 
   internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
   {
-     Vault vault = _vs.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+    Vault vault = _vs.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+    if (vaultKeepData.CreatorId != vault.CreatorId)
+    {
+      throw new Exception("save to your own vaults");
+    }
     VaultKeep vaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeepData);
-      if (vaultKeep.CreatorId != vault.CreatorId)
-          {
-            throw new Exception("bad");
-          }
-
-          if (vaultKeep == null)
-          {
-            throw new Exception("no");
-          }
-    
+    if (vaultKeep == null)
+    {
+      throw new Exception("no");
+    }
     return vaultKeep;
-
   }
 
   internal void DeleteVaultKeep(int vaultKeepId, string userId)
