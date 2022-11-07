@@ -14,6 +14,13 @@
             <img src="../assets/img/Logo (1).png" alt="" class="no-select" />
             <span>{{ keep?.kept }}</span>
           </div>
+          <div>
+            <i
+              class="mdi mdi-delete"
+              v-if="owner"
+              @click="deleteKeep(keep)"
+            ></i>
+          </div>
         </div>
         <div>
           <h1>{{ keep?.name }}</h1>
@@ -85,6 +92,7 @@ export default {
   },
   setup(props) {
     return {
+      owner: computed(() => AppState.account?.id == props.keep.creatorId),
       vaults: computed(() => AppState.userVaults),
       kept: computed(() =>
         AppState.vaultKeeps.find(
@@ -96,6 +104,19 @@ export default {
         AppState.vaultPick = v;
       },
       propImg: computed(() => `url(${props.keep?.img})`),
+      async deleteKeep(keep){
+        try {
+          const yes = await Pop.confirm()
+                if (!yes) {
+                  return
+                }
+            await keepsService.deleteKeep(keep.id)
+            Pop.success(`${keep.name} removed`)
+            Modal.getOrCreateInstance("#detail").hide()
+          } catch (error) {
+            Pop.error(error)
+          }
+      },
 
       async saveKeep(keep) {
         try {

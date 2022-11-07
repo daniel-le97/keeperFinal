@@ -38,10 +38,10 @@ export default {
       keepOwner: computed(() => AppState.account.id == props.keep.creatorId),
       vaulted: computed(() => {
         let kept = AppState.vaultKeeps.find((v) => v.keepId == props.keep.id);
-        if (kept) {
-          let keep = AppState.keeps.find((k) => k.id == kept.keepId);
-          keep.isKept = true;
-        }
+        // if (kept) {
+        //   let keep = AppState.keeps.find((k) => k.id == kept.keepId);
+        //   keep.isKept = true;
+        // }
         return kept;
       }),
       async makeActive(keep) {

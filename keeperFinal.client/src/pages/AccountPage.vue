@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <!-- <ProfileDetail :profile="profile" v-if="profile" /> -->
+              <ProfileDetail :profile="profile" v-if="profile" />
             </div>
           </div>
           <!--  -->
@@ -52,14 +52,15 @@ import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 export default {
   setup() {
     
-    // onMounted(() => {
-    //   // getProfile();
-    // });
+   
     onAuthLoaded(() => {
       getAccountKeeps();
       getAccountVaults();
-
     })
+    // onMounted(() => {
+    //   getAccountKeeps();
+    //   getAccountVaults();
+    // })
     // async function getAccountDetails() {
     //   try {
     //     await accountService.getProfile(route.params.id);
@@ -82,7 +83,7 @@ export default {
       }
     }
     return {
-      // profile: computed(() => AppState.account),
+      profile: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.userVaults),
     };

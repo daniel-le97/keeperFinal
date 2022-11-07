@@ -19,7 +19,8 @@ public class ProfilesService{
 
   internal List<Keep> GetAllKeepsByProfile(string profileId)
   {
-   return _ProfilesRepository.GetAllKeepsByProfileId(profileId);
+    List<Keep> keeps = _ProfilesRepository.GetAllKeepsByProfileId(profileId);
+   return keeps;
   }
 
   internal List<Vault> GetAllVaultsByProfile(string profileId)

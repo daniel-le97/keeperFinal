@@ -11,5 +11,5 @@ public class Keep : IHasCreator
   public Profile Creator { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
-  public int? Kept { get; set; }
+  public int? Kept { get; set; } = 0;
 }

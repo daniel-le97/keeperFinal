@@ -26,26 +26,26 @@ export const AppState = reactive({
   vaultForm:0
 })
 
-class State extends EventEmitter {
-  /** @type {import('./Models/Value').Value[]} */
-  values = []
+// class State extends EventEmitter {
+//   /** @type {import('./Models/Value').Value[]} */
+//   values = []
 
-  // /** @type {import('./Models/Task').Task[]} */
-  // tasks = loadState("tasks", Task);
+//   // /** @type {import('./Models/Task').Task[]} */
+//   // tasks = loadState("tasks", Task);
 
-  // /** @type {import('./Models/List').List[]} */
-  // lists = loadState("lists", List);
-}
+//   // /** @type {import('./Models/List').List[]} */
+//   // lists = loadState("lists", List);
+// }
 
-export const state = new Proxy(new State(), {
-  get(target, prop) {
-    isValidProp(target, prop);
-    return target[prop];
-  },
-  set(target, prop, value) {
-    isValidProp(target, prop);
-    target[prop] = value;
-    target.emit(prop, value);
-    return true;
-  },
-});
+// export const state = new Proxy(new State(), {
+//   get(target, prop) {
+//     isValidProp(target, prop);
+//     return target[prop];
+//   },
+//   set(target, prop, value) {
+//     isValidProp(target, prop);
+//     target[prop] = value;
+//     target.emit(prop, value);
+//     return true;
+//   },
+// });

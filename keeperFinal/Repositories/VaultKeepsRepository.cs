@@ -51,11 +51,11 @@ public class VaultKeepsRepository : BaseRepository
 
   internal List<VaultKeep> getAllVaultKeep(string userId)
   {
-      string sql = @"
-                SELECT 
+      string sql = @"SELECT 
                 vaultKeep.*
                 FROM  vaultKeeps vaultKeep
                 WHERE vaultKeep.creatorId = @userId
+               
                      ;";
         return _db.Query<VaultKeep>(sql, new { userId }).ToList();
   }

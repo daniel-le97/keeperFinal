@@ -3,10 +3,11 @@
 <nav>
 	<div class="toggle">
 		<input type="checkbox">
-    <span class="btn"></span>
+    <span class="btn" ></span>
+    <i class="mdi mdi-heart"></i>
     <ul>
 			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
-			<li><a href="#/account" class="text-center"><i class="mdi mdi-account fs-1"></i></a></li>
+			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="getVaultForm()"></i></a></li>
 			<li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -19,18 +20,30 @@
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
 import { Modal } from 'bootstrap';
 import { AppState } from '../AppState';
+import { router } from '../router';
+import { profilesService } from '../services/ProfilesService';
+import Pop from '../utils/Pop';
 
 export default {
   setup() {
     return {
+      // profile: computed (() => AppState.account.id)
       getKeepForm(){
-        
+        AppState.keepForm = 1
         Modal.getOrCreateInstance('#keepForm').show()
       },
       getVaultForm(){
         Modal.getOrCreateInstance('#vaultForm').show()
+      },
+      async getProfile(){
+        try {
+            router.push({name: 'Profile', params:{id: AppState.account.id}})
+          } catch (error) {
+            Pop.error(error)
+          }
       }
     };
   },
@@ -119,7 +132,7 @@ nav {
       position: absolute;
       background-color: #fff;
       border-radius: 4px;
-      transition: transform 1.25s cubic-bezier(0.8, 0, 0.2, 1);
+      transition: transform 1.25s cubic-bezier(0.7, 0, 0.2, 1);
     }
 
     &:after {
@@ -142,7 +155,7 @@ nav {
    
   }
   li {
-    transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+    transition: transform 1s cubic-bezier(1, 0, 0.3, 1);
 
     a {
       position: absolute;

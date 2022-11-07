@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent="vaultForm == 0 ? handleVaultSubmit() : handleVaultEdit()">
+  <form
+    @submit.prevent="vaultForm == 0 ? handleVaultSubmit() : handleVaultEdit()"
+  >
     <!--  -->
     <div class="container">
       <div class="row">
@@ -31,7 +33,7 @@
             <input
               type="checkbox"
               class="form-control"
-              :class="editable.isPrivate? 'bg-primary':''"
+              :class="editable.isPrivate ? 'bg-primary' : ''"
               id="vaultP"
               v-model="editable.isPrivate"
             />
@@ -81,7 +83,7 @@ import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { ref } from "vue";
 import Pop from "../utils/Pop";
-import { vaultsService} from "../services/VaultsService";
+import { vaultsService } from "../services/VaultsService";
 
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
@@ -96,13 +98,21 @@ export default {
           console.log(editable.value);
           // return
           const vault = await vaultsService.createVault(editable.value);
-          const yes = await swalsService.imagePop(editable.value.coverImg, "undo", 'top-end', 'Vault created undo?' );
-          if (yes) {
-            await vaultsService.deleteVault(vault.id);
-            Pop.success(`${vault.name} deleted`);
-          }
-          Pop.success(`${vault.name} added`)
-          Modal.getOrCreateInstance("#keepForm").hide();
+          // // const yes = await swalsService.imagePop(
+          // //   editable.value.coverImg,
+          // //   "undo",
+          // //   "top-end",
+          // //   "Vault created undo?"
+          // // );
+          // // if (yes) {
+          // //   await vaultsService.deleteVault(vault.id);
+          // //   Pop.success(`${vault.name} deleted`);
+          // // } 
+          // // else {
+            Pop.success(`${vault.name} added`);
+          
+
+          Modal.getOrCreateInstance("#vaultForm").hide();
         } catch (error) {
           console.error("[]", error);
           Pop.error(error);

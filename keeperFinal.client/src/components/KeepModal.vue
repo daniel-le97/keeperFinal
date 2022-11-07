@@ -9,11 +9,16 @@
   >
     <div
       class="modal-dialog  modal-fullscreen-sm-down modal-dialog-centered modal-scrollable"
-      :class="modalForm == 0? 'modal-xl': 'modal-md'"
+      :class="!form ? 'modal-xl': 'modal-md'"
     >
       <div class="modal-content">
         <div class="modal-body p-0">
-          <slot> </slot>
+          <slot>
+
+
+
+
+          </slot>
         </div>
         <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -31,7 +36,7 @@ import { AppState } from "../AppState";
 export default {
   setup() {
     return {
-      modalForm: computed(() => AppState.modalForm),
+      form: computed(() => AppState.keepForm || AppState.vaultForm),
       img: computed(() => `url(${AppState.activeKeep?.img})`),
     };
   },

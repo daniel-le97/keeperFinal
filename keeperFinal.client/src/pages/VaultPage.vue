@@ -6,10 +6,12 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <div
-                class="card border-0 my-3 elevation-5 rounded"
-              >
-                <img :src="vault?.coverImg" class="card-img img-fluid height" alt="" />
+              <div class="card border-0 my-3 elevation-5 rounded">
+                <img
+                  :src="vault?.coverImg"
+                  class="card-img img-fluid height"
+                  alt=""
+                />
                 <div
                   class="card-img-overlay align-items-end d-flex justify-content-between text-shadow"
                 >
@@ -43,27 +45,44 @@
 <script>
 import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
+import { router } from "../router";
 import { vaultsService } from "../services/VaultsService";
 import Pop from "../utils/Pop";
 
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter();
     onMounted(() => {
-      
-      getVaultById()
+      getVaultById();
       getKeepsInVault();
     });
-    async function getVaultById(){
-      try {
-          await vaultsService.getVaultById(route.params.id)
-        } catch (error) {
-          Pop.error(error)
+    // onAuthLoaded(() => {
+    //      getVaultById()
+    //   getKeepsInVault();
+    // })
+    watchEffect(() => {
+      if (AppState.account?.id != AppState.activeVault?.creatorId) {
+        if (AppState.activeVault?.isPrivate) {
+          console.log('not mine');
+          AppState.activeVault = null;
+          AppState.keeps = null          
+          router.push({name: 'Home'});
         }
+      }
+    });
+    async function getVaultById() {
+      try {
+        await vaultsService.getVaultById(route.params.id);
+      console.log(AppState.activeVault);
+      } catch (error) {
+        router.push({name: 'Home'})
+        Pop.error(error);
+      }
     }
     async function getKeepsInVault() {
       try {
@@ -75,7 +94,9 @@ export default {
     }
     return {
       vault: computed(() => AppState.activeVault),
+      // owner: computed(() => AppState.account.id == AppState.activeVault.creatorId && AppState.activeVault.isPrivate),
       keeps: computed(() => AppState.keeps),
+      length: computed(() => AppState.keeps.length < 5),
     };
   },
   components: { KeepCard },
@@ -92,7 +113,7 @@ export default {
     columns: 2;
   }
 }
-.height{
+.height {
   height: 400px;
   width: auto;
   object-fit: cover;
