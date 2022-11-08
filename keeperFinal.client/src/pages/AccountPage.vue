@@ -27,33 +27,32 @@
             <div class="col-12 text-center">
               <h1>vaults</h1>
               <div class="d-flex justify-content-between">
-          <div @click="togglePub()" :class="publicNum? 'text-primary fw-bold': '' ">public <i class="mdi mdi-play mdi-rotate-90"></i></div>
-            <div @click="togglePrivate()" :class="privateNum? 'text-primary fw-bold': ''">private <i class="mdi mdi-play mdi-rotate-90"></i></div>
+                <div
+                  @click="togglePub()"
+                  :class="publicNum ? 'text-primary fw-bold' : ''"
+                >
+                  public <i class="mdi mdi-play mdi-rotate-90"></i>
+                </div>
+                <div
+                  @click="togglePrivate()"
+                  :class="privateNum ? 'text-primary fw-bold' : ''"
+                >
+                  private <i class="mdi mdi-play mdi-rotate-90"></i>
+                </div>
               </div>
             </div>
-            <div 
-            :class="publicNum ? 'col-12': 'col-6'"
-            v-if="!privateNum"
-            >
-    
+            <div class="col-6">
               <div class="row collapse show" id="public" v-if="publics">
-                <div :class="publicNum? 'col-3': 'col-6'" v-for="p in publics" :key="p?.id">
+                <div class="col-6" v-for="p in publics" :key="p?.id">
                   <VaultCard :vault="p" v-if="p" />
                 </div>
               </div>
             </div>
-            <div :class="publicNum? 'd-none': 'col-6'" v-if="!privateNum">
+  
 
+            <div class="col-6">
               <div class="row collapse show" id="private" v-if="privates">
                 <div class="col-md-6" v-for="priv in privates" :key="priv?.id">
-                  <VaultCard :vault="priv" />
-                </div>
-              </div>
-            </div>
-            <div class="col-12" v-else>
- 
-              <div class="row collapse show" id="private" v-if="privates">
-                <div class="col-md-3" v-for="priv in privates" :key="priv?.id">
                   <VaultCard :vault="priv" />
                 </div>
               </div>
@@ -83,35 +82,6 @@ import { Modal } from "bootstrap";
 
 export default {
   setup() {
-    // onAuthLoaded(() => {
-    //   getAccountKeeps();
-    //   getAccountVaults();
-    // })
-    // onMounted(() => {
-    //   getAccountKeeps();
-    //   getAccountVaults();
-    // })
-    // async function getAccountDetails() {
-    //   try {
-    //     await accountService.getProfile(route.params.id);
-    //   } catch (error) {
-    //     Pop.error(error);
-    //   }
-    // }
-    // async function getAccountKeeps() {
-    //   try {
-    //     await profilesService.getProfileKeeps(AppState.account.id);
-    //   } catch (error) {
-    //     Pop.error(error);
-    //   }
-    // }
-    // async function getAccountVaults() {
-    //   try {
-    //     await accountService.getAccountVaults(AppState.account.id);
-    //   } catch (error) {
-    //     Pop.error(error);
-    //   }
-    // }
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
@@ -123,16 +93,20 @@ export default {
       editAccount() {
         Modal.getOrCreateInstance("#accountForm").show();
       },
-      togglePub(){
-        AppState.public = !AppState.public
+      togglePub() {
+        if (AppState.private) {
+          AppState.public = !AppState.public
+          return
+        }
+        AppState.public = !AppState.public;
         // AppState.private = !AppState.private
         console.log(AppState.public);
       },
-      togglePrivate(){
-        AppState.private = !AppState.private
+      togglePrivate() {
+        AppState.private = !AppState.private;
         // AppState.public = !AppState.public
         console.log(AppState.private);
-      }
+      },
     };
   },
   components: { ProfileDetail, KeepCard, VaultCard },
