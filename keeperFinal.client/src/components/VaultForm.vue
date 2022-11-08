@@ -81,7 +81,7 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import Pop from "../utils/Pop";
 import { vaultsService } from "../services/VaultsService";
 
@@ -92,7 +92,26 @@ import { swalsService } from "../services/SwalService";
 export default {
   setup() {
     const editable = ref({});
+    watchEffect(() => {
+      if (AppState.vaultForm != 0) {
+        editable.value = { ...AppState.activeVault };
+      }
+    });
     return {
+      async handleVaultEdit() {
+        try {
+          console.log(editable.value, ['edit']);
+
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+          await vaultsService.editVault(editable.value);
+        } catch (error) {
+          console.error("[]", error);
+          Pop.error(error);
+        }
+      },
       async handleVaultSubmit() {
         try {
           console.log(editable.value);
@@ -107,10 +126,9 @@ export default {
           // // if (yes) {
           // //   await vaultsService.deleteVault(vault.id);
           // //   Pop.success(`${vault.name} deleted`);
-          // // } 
+          // // }
           // // else {
-            Pop.success(`${vault.name} added`);
-          
+          Pop.success(`${vault.name} added`);
 
           Modal.getOrCreateInstance("#vaultForm").hide();
         } catch (error) {

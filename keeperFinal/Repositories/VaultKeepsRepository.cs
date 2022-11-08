@@ -40,7 +40,31 @@ public class VaultKeepsRepository : BaseRepository
   }, new { vaultId }).ToList();
 
   }
-  // COUNT(vaultKeep.id) AS Kept,
+  // internal List<KeptKeep> GetAllKeepsByVault(int vaultId)
+  // {
+  //   var sql = @"SELECT 
+  //               vaultKeep.*,
+  //               vaultKeep.id As VaultKeepId,
+  //               keep.id As KeepId,
+  //               vaultKeep.vaultId As VaultId,
+  //               a.*,
+  //               keep.*,
+  //               account.*
+  //               FROM vaultKeeps vaultKeep
+  //               JOIN accounts a on a.id = vaultKeep.creatorId
+  //               JOIN keeps keep ON keep.id = vaultKeep.keepId
+  //               JOIN accounts account ON account.id = keep.creatorId
+  //               where vaultKeep.vaultId = @vaultId
+  //               GROUP BY vaultKeep.id
+  //               ;";
+  //   return _db.Query<KeptKeep, Profile, Keep, Profile, KeptKeep>(sql, (kk, account, keep, profile) =>
+  // {
+  //   kk.Creator = account;
+  //   kk.Keep = keep;
+  //   kk.Keep.Creator = profile;
+  //   return kk;
+  // }, new { vaultId }).ToList();
+  // }
   internal void DeleteVaultKeep(int id)
   {
     var sql = @"DELETE FROM vaultKeeps WHERE id = @id ;";

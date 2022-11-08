@@ -7,7 +7,7 @@
     <div
       class="card-img-overlay align-items-end d-flex justify-content-between text-shadow"
     >
-      <i class="mdi mdi-heart text-danger fs-1"></i>
+      <i class="mdi mdi-heart text-white fs-1" v-if="vault?.isPrivate"></i>
 
       <h5 class="card-title">{{ vault?.name }}</h5>
     </div>
@@ -27,6 +27,7 @@ export default {
   },
   setup() {
     return {
+
       async makeActive(vault) {
         try {
           // AppState.activeVault = vault

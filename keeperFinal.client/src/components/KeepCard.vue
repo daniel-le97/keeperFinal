@@ -59,7 +59,7 @@ export default {
       },
        async deleteVaultKeep(){
         try {
-            await vau
+            // await vau
           } catch (error) {
             console.error('[]',error)
             Pop.error(error)

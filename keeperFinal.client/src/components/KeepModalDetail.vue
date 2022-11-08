@@ -130,8 +130,10 @@ export default {
       },
       async deleteVaultKeep(){
         try {
-                console.log(this.kept);
-            // await vaultsService.deleteVaultKeep(this.kept.id)
+                console.log(props.keep?.vaultKeepId);
+            await vaultsService.deleteVaultKeep(props.keep?.vaultKeepId)
+             Modal.getOrCreateInstance("#detail").hide();
+            Pop.success('keep removed from vault')
           } catch (error) {
             Pop.error(error)
           }
