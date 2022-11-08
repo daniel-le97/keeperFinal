@@ -22,13 +22,14 @@ public class VaultKeepsRepository : BaseRepository
   {
     var sql = @"SELECT 
                 vaultKeep.*,
+                COUNT(vaultKeep.id) AS Kept,
                 vaultKeep.id AS VaultKeepId,
                 vaultKeep.creatorId AS VaultKeepCreatorId,
                 keep.*,
                 account.*
                 FROM vaultKeeps vaultKeep
-                JOIN accounts account ON account.id = vaultKeep.creatorId
                 JOIN keeps keep ON keep.id = vaultKeep.keepId
+                JOIN accounts account ON account.id = keep.creatorId
                 where vaultKeep.vaultId = @vaultId
                 GROUP BY vaultKeep.id
                 ;";
@@ -39,7 +40,7 @@ public class VaultKeepsRepository : BaseRepository
   }, new { vaultId }).ToList();
 
   }
-
+  // COUNT(vaultKeep.id) AS Kept,
   internal void DeleteVaultKeep(int id)
   {
     var sql = @"DELETE FROM vaultKeeps WHERE id = @id ;";

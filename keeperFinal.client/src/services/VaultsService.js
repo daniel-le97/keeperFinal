@@ -23,10 +23,10 @@ class VaultsService {
     
       const res = await api.get(`api/vaults/${vaultId}/keeps`);
       console.log(res.data);
-      // AppState.keeps = res.data.map((k) => new Keep(k));
+      AppState.keeps = res.data.map((k) => new Keep(k));
       
    
-    // console.log(AppState.keeps, '[vaultsService]');
+    console.log(AppState.keeps, '[vaultsService]');
   }
   async createVault(vaultData){
     const res =  await api.post('api/vaults', vaultData)
