@@ -1,5 +1,5 @@
 <template>
-<!-- <div class="m-3">
+  <!-- <div class="m-3">
     <div class="card-container ">
      
       <div class="top-card rounded position-relative">
@@ -11,7 +11,7 @@
       </div>
     </div>
   </div> -->
-  
+
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
@@ -19,31 +19,36 @@
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="m-3">
-    <div class="card-container ">
-     
-      <div class="top-card rounded position-relative">
-        <i class="mdi mdi-dots-horizontal fs-1 text-danger dots" @click="editAccount()"></i>
-        <img :src="account?.picture" alt="icon" />
-      </div>
-      <div class="bottom-card d-flex justify-content-center pt-5 ">
-        <h1>{{ account?.name }}</h1>
-      </div>
-    </div>
-  </div>
-              <!-- <ProfileDetail :profile="profile" v-if="profile" /> -->
+                <div class="card-container">
+                  <div class="top-card rounded position-relative">
+                    <i
+                      class="mdi mdi-dots-horizontal fs-1 text-danger dots"
+                      @click="editAccount()"
+                    ></i>
+                    <img :src="account?.picture" alt="icon" />
+                  </div>
+                  <div class="bottom-card d-flex justify-content-center pt-5">
+                    <h1>{{ account?.name }}</h1>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-         
+<!--  -->
           <div class="row justify-content-evenly">
             <div class="col-12 text-center">
               <h1>vaults</h1>
             </div>
-            <div class="col-3 height my-3" v-for="vault in vaults" :key="vault.id">
+            <div
+              class="col-3 height my-3"
+              v-for="vault in vaults"
+              :key="vault.id"
+            >
               <VaultCard :vault="vault" />
             </div>
           </div>
-       
-          <div class="text-center"><h1>keeps</h1></div>
+<!--  -->
+          <!-- <div class="text-center"><h1>keeps</h1></div>
           <div class="bricks mt-5 mb-5">
             <div
               class="min elevation-5"
@@ -53,7 +58,7 @@
             >
               <KeepCard :keep="keep" v-if="keep" />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -77,8 +82,6 @@ import { Modal } from "bootstrap";
 
 export default {
   setup() {
-    
-   
     // onAuthLoaded(() => {
     //   getAccountKeeps();
     //   getAccountVaults();
@@ -112,18 +115,17 @@ export default {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.userVaults),
-      imgC: computed (() => `url(${AppState.account?.coverImg})`),
-       editAccount(){
-        
-        Modal.getOrCreateInstance('#accountForm').show()
-      }
+      imgC: computed(() => `url(${AppState.account?.coverImg})`),
+      editAccount() {
+        Modal.getOrCreateInstance("#accountForm").show();
+      },
     };
   },
   components: { ProfileDetail, KeepCard, VaultCard },
 };
 </script>
 <style scoped lang="scss">
-.dots{
+.dots {
   position: absolute;
   z-index: 10;
   bottom: -2.5rem;
@@ -153,16 +155,14 @@ export default {
 .bricks {
   columns: 4;
   column-fill: balance;
-  
 }
 //when screen is 768px OR LESS
-@media only screen and (max-width: 768px){
-.bricks{
-  columns: 2;
-}
+@media only screen and (max-width: 768px) {
+  .bricks {
+    columns: 2;
+  }
 }
 .min {
   min-height: 5vh;
 }
-
 </style>

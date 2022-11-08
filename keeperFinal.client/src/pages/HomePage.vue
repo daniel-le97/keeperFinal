@@ -5,7 +5,7 @@
         <div class="container" v-if="keeps">
           <div class="bricks mt-5 mb-5">
             <div
-              class="min elevation-5"
+              class="min"
               :class="keep ? '' : 'skeleton-loader'"
               v-for="(keep, index) in keeps"
               :key="keep.id"
@@ -33,7 +33,7 @@ export default {
   setup() {
     async function getAllKeeps() {
       try {
-        await keepsService.getAllKeeps();
+        await keepsService.getAllKeeps(AppState.offset);
       } catch (error) {
         Pop.error(error);
       }
@@ -42,15 +42,14 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
+          document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          console.log("hi");
+          console.log('hello');
+        //  getAllKeeps()
         }
       };
     }
-    onUnmounted(() => {});
     onMounted(() => {
       getAllKeeps();
       infiniteScroll();
@@ -73,8 +72,5 @@ export default {
   .bricks {
     columns: 2;
   }
-}
-.min {
-  min-height: 5vh;
 }
 </style>

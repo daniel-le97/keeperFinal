@@ -4,10 +4,16 @@ import { VaultKeep } from "../models/VaultKeep";
 import { api } from "./AxiosService"
 
 class  KeepsService {
- async getAllKeeps(){
-  const res = await api.get('api/keeps')
+ async getAllKeeps(offset){
+  const res = await api.get('api/keeps',{
+    params:{
+      offset: offset
+    }
+  })
   console.log(res.data);
   let keeps = res.data.map( k => new Keep(k))
+  AppState.offset += keeps.length
+  console.log(AppState.offset);
   AppState.keeps = [...AppState.keeps, ...keeps]
  }
   async saveKeep(vaultKeep){

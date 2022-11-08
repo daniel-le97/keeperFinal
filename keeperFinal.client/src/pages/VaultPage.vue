@@ -49,11 +49,13 @@
 
         <!-- -->
         <div class="container">
-          <div class="row mt-5">
-            <div class="col-12">
-              <div class="d-flex justify-content-center">
+          <div class="row mt-5 justify-content-center">
+            <div class="col-2 rounded-pill orange">
+              <div class="text-center fs-3" v-if="keeps.length">{{ keeps.length}}</div>
+              <div class="text-center fs-3" v-else>vault is empty</div>
+              <!-- <div class="d-flex justify-content-center">
                 {{ keeps?.length }}
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="bricks mt-5 mb-5">
@@ -108,7 +110,7 @@ export default {
         AppState.keeps = [];
         AppState.activeVault = null;
         await vaultsService.getVaultById(route.params.id);
-        // console.log(AppState.activeVault);
+        console.log(AppState.activeVault);
       } catch (error) {
         console.error("[bad vault]");
         router.push({ name: "Home" });
@@ -125,7 +127,7 @@ export default {
     }
     return {
       editVault() {
-        console.log("hello");
+        // console.log("hello");
         AppState.vaultForm = 1;
         Modal.getOrCreateInstance("#vaultForm").show();
       },
@@ -157,6 +159,9 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.orange{
+  background-color:  rgba(245, 97, 75, 0.715);
+}
 .text-shadow {
   color: aliceblue;
   text-shadow: 1px 1px black, 0px 0px 5px salmon;

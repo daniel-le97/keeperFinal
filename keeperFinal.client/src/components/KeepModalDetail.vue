@@ -5,7 +5,7 @@
         <div class="img rounded-start"></div>
       </div>
       <div class="col-md-6 d-flex justify-content-between flex-column">
-        <div class="d-flex gap-5 justify-content-center">
+        <div class="d-flex gap-5 justify-content-center mt-3">
           <div class="d-flex gap-2">
             <i class="mdi mdi-eye mx-1"></i>
             <span>{{ keep?.views }}</span>
@@ -17,7 +17,7 @@
           <div>
             <i
               class="mdi mdi-delete"
-              v-if="owner"
+              v-if="owner && !routeVault"
               @click="deleteKeep(keep)"
             ></i>
           </div>
@@ -26,7 +26,7 @@
           <h1>{{ keep?.name }}</h1>
           <p>{{ keep?.description }}</p>
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mb-2">
           <!--  inject vault stuff here TODO -->
           <div class="d-flex gap-2" v-if="!routeVault">
             <div class="dropdown open">
@@ -57,21 +57,20 @@
               save
             </button>
           </div>
-          <div v-else>
-            <div @click="deleteVaultKeep()">
-              remove
-            </div>
+          <div v-else class="align-self-center">
+            <button class="btn bg-danger" @click="deleteVaultKeep()">remove</button>
           </div>
 
           <div>
-            <div>
+            <div class="d-flex align-items-center gap-3">
               <img
                 :src="keep?.creator.picture"
                 alt=""
                 height="50"
-                class="rounded-circle"
+                class="rounded-circle shadow-2"
                 @click="getProfile(keep.creatorId)"
               />
+              <div>{{keep?.creator.name}}</div>
             </div>
           </div>
         </div>
@@ -130,6 +129,10 @@ export default {
       },
       async deleteVaultKeep(){
         try {
+          const yes = await Pop.confirm()
+                if (!yes) {
+                  return
+                }
                 console.log(props.keep?.vaultKeepId);
             await vaultsService.deleteVaultKeep(props.keep?.vaultKeepId)
              Modal.getOrCreateInstance("#detail").hide();

@@ -23,7 +23,8 @@ export const AppState = reactive({
   activeProfile:null,
   vaultKeeps: [],
   keepForm:0,
-  vaultForm:0
+  vaultForm:0,
+  offset: 0
 })
 
 // class State extends EventEmitter {

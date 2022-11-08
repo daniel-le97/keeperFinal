@@ -28,13 +28,14 @@
               required
             />
           </div>
-          <div class="mb-3">
+          <div class="mb-3 " >
             <label for="vaultP" class="form-label">make it private</label>
             <input
               type="checkbox"
-              class="form-control"
+              class="form-control w-25"
               :class="editable.isPrivate ? 'bg-primary' : ''"
               id="vaultP"
+              width="50"
               v-model="editable.isPrivate"
             />
           </div>
@@ -62,12 +63,13 @@
             <button type="submit" class="btn btn-primary">submit Vault</button>
           </div>
         </div>
-        <div class="col-md-6 d-flex justify-content-center p-0">
-          <div class="bg-dark img-card rounded">
+        <div class="col-md-6 d-flex flex-row justify-content-center p-0">
+          <i class="mdi mdi-lock" v-if="editable.isPrivate"></i>
+          <div class=" img-card d-flex p-3 position-relative">
             <img
               :src="editable.coverImg"
               alt=""
-              class="img-fluid"
+              class="img-fluid rounded"
               v-if="editable.coverImg"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
@@ -100,15 +102,16 @@ export default {
     return {
       async handleVaultEdit() {
         try {
-          console.log(editable.value, ['edit']);
+          // console.log(editable.value, ['edit']);
 
           const yes = await Pop.confirm();
           if (!yes) {
             return;
           }
           await vaultsService.editVault(editable.value);
+          Pop.success(`$${editable.value.name} removed`)
         } catch (error) {
-          console.error("[]", error);
+          console.error(error);
           Pop.error(error);
         }
       },
@@ -144,6 +147,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mdi-lock{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .img-card {
   min-height: 20rem;
   width: 20rem;

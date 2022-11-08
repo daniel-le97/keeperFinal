@@ -3,11 +3,11 @@
     class="card border-0 my-3 elevation-5 rounded"
     @click="makeActive(vault)"
   >
-    <img :src="vault?.coverImg" class="card-img img-fluid" alt="" />
+    <img :src="vault?.coverImg" class="card-img img" alt="" />
     <div
-      class="card-img-overlay align-items-end d-flex justify-content-between text-shadow"
+      class="card-img-overlay align-items-end d-flex flex-column justify-content-between align-content-between text-shadow"
     >
-      <i class="mdi mdi-heart text-white fs-1" v-if="vault?.isPrivate"></i>
+      <i class="mdi mdi-lock text-white fs-6" v-if="vault?.isPrivate"></i>
 
       <h5 class="card-title">{{ vault?.name }}</h5>
     </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import { Vault } from "../models/Vault";
 import { router } from "../router";
@@ -26,22 +27,20 @@ export default {
     vault: { type: Vault, required: true },
   },
   setup() {
+    const router = useRouter();
     return {
-
       async makeActive(vault) {
         try {
-          // AppState.activeVault = vault
-          AppState.keeps = [];
-          if (vault.isPrivate) {
-            
+          if (!vault.isPrivate) {
+            AppState.activeVault = vault;
+            AppState.keeps = [];
+            router.push({ name: "Vault", params: { id: vault.id } });
+            document.documentElement.scrollTop = 0;
           }
-          router.push({ name: "Vault", params: { id: vault.id } });
-
-          document.documentElement.scrollTop = 0;
 
           // await vaultsService.getKeepsInVault(vault.id)
         } catch (error) {
-          Pop.error(error);
+          router.push({name: 'Home'})
         }
       },
     };
@@ -49,4 +48,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.text-shadow {
+  color: aliceblue;
+  text-shadow: 1px 1px black, 0px 0px 5px salmon;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
+
+  /* Second Color  in text-shadow is the blur */
+}
+
+.img {
+  height: 250px;
+}
+</style>

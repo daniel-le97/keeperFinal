@@ -4,7 +4,7 @@
 	<div class="toggle">
 		<input type="checkbox">
     <span class="btn" ></span>
-    <i class="mdi mdi-heart"></i>
+    <!-- <i class="mdi mdi-heart"></i> -->
     <ul>
 			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>

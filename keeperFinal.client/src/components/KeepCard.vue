@@ -1,13 +1,13 @@
 <template>
   <div
-    class="card border-0 my-3 elevation-5 fluid rounded position-relative"
+    class="card border-0 my-3 elevation-5 rounded position-relative beep"
     @click="makeActive(keep)"
     >
-    <img :src="keep?.img" class="card-img img-fluid" alt="" height="auto" />
+    <img :src="keep?.img" class="card-img img-fluid rounded img" alt="" />
     <div
     class="card-img-overlay align-items-end d-flex justify-content-between text-shadow "
     >
-    <i class="mdi mdi-hospital mdi-rotate-45 position-absolute move fs-5" @click="deleteVaultKeep()"></i>
+    <!-- <i class="mdi mdi-hospital mdi-rotate-45 position-absolute move fs-5" @click="deleteVaultKeep()"></i> -->
       <i class="mdi mdi-heart text-danger fs-1" v-if="vaulted"></i>
 
       <h5 class="card-title">{{ keep?.name }}</h5>
@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.beep::hover{
+  transform: scale(1.1);
+}
+
 .move{
   top: -9px;
   right: -7px;
