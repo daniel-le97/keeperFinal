@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card border-0 my-3 elevation-5 rounded position-relative beep"
+    class="card border-0 elevation-5 rounded position-relative beep"
     @click="makeActive(keep)"
     >
     <img :src="keep?.img" class="card-img img-fluid rounded img" alt="" />

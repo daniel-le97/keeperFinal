@@ -11,9 +11,10 @@
           <!--  -->
           <div class="row justify-content-evenly">
             <div class="col-12 text-center">
-              <h1>vaults</h1>
+              <h1 class="btn fs-3" title="vault collapse button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">vaults <i class="mdi mdi-play mdi-rotate-90 fs-4"></i></h1>
             </div>
-            <div class="col-3 height my-3" v-for="vault in vaults" :key="vault.id">
+            
+            <div class="col-6 col-md-3 height my-3 collapse show" id="collapseExample" v-for="vault in vaults" :key="vault.id">
               <VaultCard :vault="vault" />
             </div>
           </div>

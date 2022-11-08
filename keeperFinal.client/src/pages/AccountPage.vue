@@ -1,17 +1,4 @@
 <template>
-  <!-- <div class="m-3">
-    <div class="card-container ">
-     
-      <div class="top-card rounded position-relative">
-        <i class="mdi mdi-dots-horizontal fs-1 text-danger dots" @click="editAccount()"></i>
-        <img :src="account?.picture" alt="icon" />
-      </div>
-      <div class="bottom-card d-flex justify-content-center pt-5 ">
-        <h1>{{ account?.name }}</h1>
-      </div>
-    </div>
-  </div> -->
-
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
@@ -34,31 +21,45 @@
               </div>
             </div>
           </div>
-<!--  -->
+          <!--  -->
+
           <div class="row justify-content-evenly">
             <div class="col-12 text-center">
               <h1>vaults</h1>
+              <div class="d-flex justify-content-between">
+          <div @click="togglePub()" :class="publicNum? 'text-primary fw-bold': '' ">public <i class="mdi mdi-play mdi-rotate-90"></i></div>
+            <div @click="togglePrivate()" :class="privateNum? 'text-primary fw-bold': ''">private <i class="mdi mdi-play mdi-rotate-90"></i></div>
+              </div>
             </div>
-            <div
-              class="col-3 height my-3"
-              v-for="vault in vaults"
-              :key="vault.id"
+            <div 
+            :class="publicNum ? 'col-12': 'col-6'"
+            v-if="!privateNum"
             >
-              <VaultCard :vault="vault" />
+    
+              <div class="row collapse show" id="public" v-if="publics">
+                <div :class="publicNum? 'col-3': 'col-6'" v-for="p in publics" :key="p?.id">
+                  <VaultCard :vault="p" v-if="p" />
+                </div>
+              </div>
+            </div>
+            <div :class="publicNum? 'd-none': 'col-6'" v-if="!privateNum">
+
+              <div class="row collapse show" id="private" v-if="privates">
+                <div class="col-md-6" v-for="priv in privates" :key="priv?.id">
+                  <VaultCard :vault="priv" />
+                </div>
+              </div>
+            </div>
+            <div class="col-12" v-else>
+ 
+              <div class="row collapse show" id="private" v-if="privates">
+                <div class="col-md-3" v-for="priv in privates" :key="priv?.id">
+                  <VaultCard :vault="priv" />
+                </div>
+              </div>
             </div>
           </div>
-<!--  -->
-          <!-- <div class="text-center"><h1>keeps</h1></div>
-          <div class="bricks mt-5 mb-5">
-            <div
-              class="min elevation-5"
-              :class="keep ? '' : 'skeleton-loader'"
-              v-for="(keep, index) in keeps"
-              :key="keep.id"
-            >
-              <KeepCard :keep="keep" v-if="keep" />
-            </div>
-          </div> -->
+          <!--  -->
         </div>
       </div>
     </div>
@@ -114,11 +115,24 @@ export default {
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.userVaults),
+      publics: computed(() => AppState.publicVaults),
+      privates: computed(() => AppState.privateVaults),
+      publicNum: computed(() => AppState.public),
+      privateNum: computed(() => AppState.private),
       imgC: computed(() => `url(${AppState.account?.coverImg})`),
       editAccount() {
         Modal.getOrCreateInstance("#accountForm").show();
       },
+      togglePub(){
+        AppState.public = !AppState.public
+        // AppState.private = !AppState.private
+        console.log(AppState.public);
+      },
+      togglePrivate(){
+        AppState.private = !AppState.private
+        // AppState.public = !AppState.public
+        console.log(AppState.private);
+      }
     };
   },
   components: { ProfileDetail, KeepCard, VaultCard },

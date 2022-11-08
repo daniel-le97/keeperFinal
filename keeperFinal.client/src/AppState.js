@@ -11,8 +11,13 @@ export const AppState = reactive({
   keeps:[],
   /** @type {import('./models/Keep.js).Keep[]} */
   activeKeep: null,
+  // /** @type {import('./models/Vault.js).Vault[]} */
+  public:false,
+  private: false,
   /** @type {import('./models/Vault.js).Vault[]} */
-  userVaults:[],
+  publicVaults:[],
+  /** @type {import('./models/Vault.js).Vault[]} */
+  privateVaults:[],
   /** @type {import('./models/Vault.js).Vault[]} */
   vaults:[],
   /** @type {import('./models/Vault.js).Vault | null} */
@@ -24,7 +29,8 @@ export const AppState = reactive({
   vaultKeeps: [],
   keepForm:0,
   vaultForm:0,
-  offset: 0
+  offset: 0,
+  size: window.innerWidth <= 768
 })
 
 // class State extends EventEmitter {

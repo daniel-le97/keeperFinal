@@ -1,9 +1,16 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
       <div class="col-md-10">
-        <div class="container" v-if="keeps">
-          <div class="bricks mt-5 mb-5">
+        <div class="container" v-if="items">
+          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16" class="width">
+            <template #default="{ item, index }" class="hi d-block">
+              <div >
+                <KeepCard :keep="item" />
+              </div>
+            </template>
+          </masonry-wall>
+          <!-- <div class="bricks mt-5 mb-5">
             <div
               class="min"
               :class="keep ? '' : 'skeleton-loader'"
@@ -12,7 +19,7 @@
             >
               <KeepCard :keep="keep" />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -39,23 +46,28 @@ export default {
       }
     }
 
+    let timer = setTimeout(getAllKeeps, 1000)
     function infiniteScroll() {
-      window.onscroll = () => {
+      window.onscroll = (e) => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-
+          document.documentElement.scrollTop + window.innerHeight >=
+          document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          console.log('hello');
-        //  getAllKeeps()
+          // getCurrentRecipes();
+          timer
+          // getAllKeeps()
+          console.log('hi');
         }
       };
     }
+    
     onMounted(() => {
       getAllKeeps();
       infiniteScroll();
     });
     return {
-      keeps: computed(() => AppState.keeps),
+      items: computed(() => AppState.keeps),
+      size: computed(() => window.innerWidth <= 768),
     };
   },
   components: { KeepCard },
@@ -63,6 +75,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.hi{
+  height: min-content;
+}
 .bricks {
   columns: 4;
   column-fill: balance;

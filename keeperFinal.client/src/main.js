@@ -5,10 +5,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { registerGlobalComponents } from './registerGlobalComponents'
 import { router } from './router'
+import MasonryWall from "@yeger/vue-masonry-wall";
 
 const root = createApp(App)
 registerGlobalComponents(root)
 
 root
   .use(router)
+  .use(MasonryWall)
   .mount('#app')
