@@ -5,7 +5,10 @@
     <!--  -->
     <div class="container">
       <div class="row">
+
         <div class="col-md-6">
+          <div class="text-center fw-bold" v-if="vaultForm == 0">vault creation</div>
+          <div class="text-center fw-bold" v-else>vault edit</div>
           <div class="mb-3">
             <label for="recipeTitle" class="form-label">name</label>
             <input
@@ -33,7 +36,7 @@
             <input
               type="checkbox"
               class="form-control w-25"
-              :class="editable.isPrivate ? 'bg-primary' : ''"
+              :class="editable.isPrivate ? 'bg-orange' : ''"
               id="vaultP"
               width="50"
               v-model="editable.isPrivate"
@@ -60,11 +63,25 @@
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary">submit Vault</button>
+            <button type="submit" class="btn btn-primary" v-if="vaultForm == 0">submit Vault</button>
+            <button type="submit" class="btn btn-primary" v-else>update Vault</button>
           </div>
         </div>
-        <div class="col-md-6 d-flex flex-row justify-content-center p-0">
+               <div class="col-md-6 d-flex justify-content-center  p-0">
+                   <i class="mdi mdi-lock text-shadow p-2 fs-4" v-if="editable.isPrivate"></i>
+          <div class="bg-dark img-card rounded-end">
+            <img
+              :src="editable.coverImg"
+              alt=""
+              class="img-fluid  rounded p-1"
+              v-if="editable.coverImg"
+            />
+            <div class="text-center" v-else><span>no image yet</span></div>
+          </div>
+        </div>
+        <!-- <div class="col-md-6 d-flex flex-row justify-content-center p-0">
           <i class="mdi mdi-lock" v-if="editable.isPrivate"></i>
+          
           <div class=" img-card d-flex p-3 position-relative">
             <img
               :src="editable.coverImg"
@@ -74,7 +91,7 @@
             />
             <div class="text-center" v-else><span>no image yet</span></div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </form>
@@ -102,14 +119,16 @@ export default {
     return {
       async handleVaultEdit() {
         try {
-          // console.log(editable.value, ['edit']);
 
-          const yes = await Pop.confirm();
+
+          const yes = await Pop.confirm('are you sure?');
           if (!yes) {
             return;
           }
           await vaultsService.editVault(editable.value);
-          Pop.success(`$${editable.value.name} removed`)
+          editable.value = {}
+          Modal.getOrCreateInstance("#vaultForm").hide();
+          Pop.success(`${editable.value.name} updated`)
         } catch (error) {
           console.error(error);
           Pop.error(error);
@@ -118,19 +137,8 @@ export default {
       async handleVaultSubmit() {
         try {
           console.log(editable.value);
-          // return
           const vault = await vaultsService.createVault(editable.value);
-          // // const yes = await swalsService.imagePop(
-          // //   editable.value.coverImg,
-          // //   "undo",
-          // //   "top-end",
-          // //   "Vault created undo?"
-          // // );
-          // // if (yes) {
-          // //   await vaultsService.deleteVault(vault.id);
-          // //   Pop.success(`${vault.name} deleted`);
-          // // }
-          // // else {
+          editable.value = {}
           Pop.success(`${vault.name} added`);
 
           Modal.getOrCreateInstance("#vaultForm").hide();
@@ -147,13 +155,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bg-orange{
+ background:  rgb(238, 77, 52);
+}
+img{
+  height: 100%;
+  object-fit: cover;
+object-position: center;
+}
+
+.text-shadow{
+  color: aliceblue;
+  text-shadow: 1px 1px black, 0px 0px 5px salmon;
+  font-weight: bold;
+  letter-spacing: 0.08rem
+  
+  /* Second Color  in text-shadow is the blur */
+}
 .mdi-lock{
   position: absolute;
   top: 0;
   right: 0;
 }
 .img-card {
-  min-height: 20rem;
+  // min-height: 20rem;
   width: 20rem;
 }
 .buttons {

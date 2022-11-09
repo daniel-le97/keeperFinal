@@ -7,17 +7,10 @@ import { api } from "./AxiosService";
 
 class VaultsService {
   async getVaultById(vaultId) {
-    // try {
-    // } catch (error) {
-    //   // console.log(error);
-    //   router.push({name: 'Home'})
-    // }
+
     const res = await api.get(`api/vaults/${vaultId}`);
     AppState.activeVault = new Vault(res.data);
-    console.log(res.data);
-    // if (!res) {
-    //   router.push({name: 'Home'})
-    // }
+
   }
   async getKeepsInVault(vaultId) {
     const res = await api.get(`api/vaults/${vaultId}/keeps`);
@@ -37,6 +30,7 @@ class VaultsService {
     console.log(res.data);
     AppState.activeVault = null;
     AppState.userVaults = AppState.userVaults.filter((v) => v.id != vaultId);
+    AppState.filterVaults = AppState.filterVaults.filter((v) => v.id != vaultId);
     AppState.publicVaults = AppState.publicVaults.filter((v) => v.id != vaultId);
     AppState.privateVaults = AppState.privateVaults.filter((v) => v.id != vaultId);
     AppState.vaultKeeps = AppState.vaultKeeps.filter((v) => v.vaultId != vaultId);

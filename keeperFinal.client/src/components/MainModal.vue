@@ -9,7 +9,7 @@
   >
     <div
       class="modal-dialog  modal-fullscreen-sm modal-dialog-centered modal-scrollable"
-      :class="!form ? 'modal-xl': 'modal-md'"
+      :class="!modalNum ? 'modal-xl': 'modal-md'"
     >
       <div class="modal-content">
         <div class="modal-body p-0">
@@ -36,7 +36,7 @@ import { AppState } from "../AppState";
 export default {
   setup() {
     return {
-      form: computed(() => AppState.keepForm || AppState.vaultForm),
+      modalNum: computed(() => AppState.modal),
       img: computed(() => `url(${AppState.activeKeep?.img})`),
     };
   },

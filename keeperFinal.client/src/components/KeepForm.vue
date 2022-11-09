@@ -84,11 +84,9 @@ export default {
       async handleKeepSubmit() {
         try {
           const keep = await keepsService.createKeep(editable.value);
-          const yes = await swalsService.imagePop(editable.value.img, "undo", 'top-end', 'keep created undo?' );
-          if (yes) {
-            await keepsService.deleteKeep(keep.id);
-            Pop.success(`${keep.name} deleted`);
-          }
+         
+          Pop.success(`${keep.name} created`);
+          editable.value = {}
           Modal.getOrCreateInstance("#keepForm").hide();
         } catch (error) {
           console.error("[]", error);

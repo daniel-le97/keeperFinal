@@ -82,7 +82,7 @@ export default {
       privateNum: computed(() => AppState.private),
       imgC: computed(() => `url(${AppState.account?.coverImg})`),
       editAccount() {
-        AppState.keepForm = 1
+        AppState.modal = 1
         Modal.getOrCreateInstance("#accountForm").show();
       },
       togglePub() {
@@ -93,8 +93,6 @@ export default {
           return
         }
         AppState.filterVaults = AppState.userVaults
-        // AppState.private = !AppState.private
-        console.log(AppState.public);
       },
       togglePrivate() {
         AppState.private = !AppState.private;
@@ -104,9 +102,6 @@ export default {
           return
         }
         AppState.filterVaults = AppState.userVaults
-        // AppState.private = !AppState.private;
-        // AppState.public = !AppState.public
-        console.log(AppState.private);
       },
     };
   },

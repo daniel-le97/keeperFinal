@@ -34,10 +34,13 @@ export default {
     return {
       profileImg: computed (() => AppState.account.picture),
       getKeepForm(){
-        AppState.keepForm = 1
+        AppState.keepForm = 0
+        AppState.modal = 1
         Modal.getOrCreateInstance('#keepForm').show()
       },
       getVaultForm(){
+        AppState.vaultForm = 0
+        AppState.modal = 1
         Modal.getOrCreateInstance('#vaultForm').show()
       },
       async getProfile(){

@@ -26,18 +26,26 @@ class KeepsService {
   async getMatchingVaultKeep(vaultId, keepId) {
     console.log(vaultId, keepId);
   }
-  async getKeepById(keepId) {
-    const res = await api.get(`api/keeps/${keepId}`);
+  async getKeepById(keep) {
+    // console.log(keep);
+    let vaultKeepId = keep.vaultKeepId
+  
+    const res = await api.get(`api/keeps/${keep.id}`);
     // console.log(res.data);
-    AppState.activeKeep = new Keep(res.data)
+    let newKeep = new Keep(res.data)
+    AppState.activeKeep = newKeep
+
+    if (vaultKeepId) {
+      AppState.activeKeep.vaultKeepId = vaultKeepId
+    }
+    // console.log(AppState.activeKeep);
 
     for (const v of AppState.userVaults) {
       let hi = AppState.vaultKeeps.find(
-        (vk) => vk.vaultId == v.id && vk.keepId == keepId
+        (vk) => vk.vaultId == v.id && vk.keepId == keep.id
       );
 
       if (hi) {
-        console.log("keeper");
         v.keeper = true;
       } else {
         v.keeper = false;

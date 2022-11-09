@@ -14,6 +14,7 @@
               required
               minlength="2"
               maxlength="100"
+              title="enter a name"
             />
           </div>
           <div class="mb-3">
@@ -24,6 +25,7 @@
               id="recipeImg"
               v-model="editable.picture"
               required
+              title="add a picture"
             />
           </div>
           <div class="mb-3">
@@ -33,21 +35,9 @@
               class="form-control"
               id="recipeImg"
               v-model="editable.coverImg"
-              required
+              title="add a cover image"
             />
           </div>
-          <!-- <div class="mb-3">
-            <label for="recipeInstruction" class="form-label"
-              >Description</label
-            >
-            <textarea
-              class="form-control"
-              id="recipeInstruction"
-              rows="3"
-              v-model="editable.description"
-              required
-            ></textarea>
-          </div> -->
           <div class="m-2 d-flex gap-2">
             <button
               type="button"
@@ -57,12 +47,12 @@
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary">done editing?</button>
+            <button type="submit" class="btn btn-primary" title="submit account info" >done editing?</button>
           </div>
         </div>
-        <div class="col-md-4 d-flex justify-content-center p-0 rounded"
+        <div class="col-md-6 d-flex justify-content-center p-0 "
             >
-          <div class="bg-dark img-card rounded p-4 d-flex justify-content-center" :class="cover? 'cover':''">
+          <div class="bg-dark img-card rounded-end p-4 d-flex justify-content-center align-items-center" :class="cover? 'cover':''">
             <img
               :src="editable.picture"
               alt=""
@@ -124,6 +114,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img{
+  height: 50%;
+
+  object-fit: cover;
+object-position: center;
+}
+
 .cover{
   background-image: v-bind(cover);
   background-position: center;

@@ -31,13 +31,14 @@ export default {
     return {
       async makeActive(vault) {
         try {
-          // let privateV = vault.isPrivate && vault.creatorId != AppState.account.id
-          // if (!privateV) {
-          // }
-          AppState.activeVault = vault;
-          AppState.keeps = [];
-          router.push({ name: "Vault", params: { id: vault.id } });
-          document.documentElement.scrollTop = 0;
+          let privateV = vault.isPrivate && vault.creatorId != AppState.account.id
+          if (privateV) {
+            return
+          }
+            AppState.activeVault = vault;
+            AppState.keeps = [];
+            router.push({ name: "Vault", params: { id: vault.id } });
+            document.documentElement.scrollTop = 0;
           
           // await vaultsService.getKeepsInVault(vault.id)
         } catch (error) {

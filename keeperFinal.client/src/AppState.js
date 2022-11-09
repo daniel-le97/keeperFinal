@@ -32,6 +32,7 @@ export const AppState = reactive({
   keepForm:0,
   vaultForm:0,
   offset: 0,
+  modal: 0,
 
 })
 

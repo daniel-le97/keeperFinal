@@ -47,11 +47,12 @@ export default {
       }),
       async makeActive(keep) {
         try {
+          AppState.modal = 0
           // AppState.activeKeep = keep;
           // console.log(keep);
           // if (!this.keepOwner) {
           // }
-            await keepsService.getKeepById(keep.id);
+            await keepsService.getKeepById(keep);
           
           Modal.getOrCreateInstance("#detail").show();
         } catch (error) {

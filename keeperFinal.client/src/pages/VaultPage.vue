@@ -13,7 +13,7 @@
                   alt=""
                 />
                 <div
-                  class="card-img-overlay d-flex flex-column justify-content-end  text-shadow"
+                  class="card-img-overlay d-flex flex-column justify-content-end text-shadow"
                 >
                   <!-- <i class="mdi mdi-heart text-danger fs-1"></i> -->
 
@@ -22,28 +22,30 @@
                   </h1>
                 </div>
               </div>
-
-              <div class="dropend dots" v-if="owner">
-                <button
-                  class="btn border-0"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i
-                    class="mdi mdi-dots-horizontal fs-1 text-danger selectable rounded"
-                  ></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <a class="dropdown-item" @click="editVault()">edit</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="deleteVault(vault)"
-                      >delete</a
-                    >
-                  </li>
-                </ul>
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center"><i class="mdi mdi-arrow-left fw-bold fs-1" @click="goBack()"></i></div>
+                <div class="dropend" v-if="owner">
+                  <button
+                    class="btn border-0 p-0"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i
+                      class="mdi mdi-dots-horizontal h-25 align-top fs-1 text-danger selectable rounded"
+                    ></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <a class="dropdown-item" @click="editVault()">edit</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" @click="deleteVault(vault)"
+                        >delete</a
+                      >
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -52,7 +54,7 @@
         <!-- -->
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-2 rounded-pill orange">
+            <div class="col-6 rounded-pill orange">
               <div class="text-center fs-3" v-if="items.length">
                 {{ items.length }}
               </div>
@@ -111,16 +113,6 @@ export default {
       getVaultById();
       getKeepsInVault();
     });
-    // watchEffect(() => {
-    //   if (AppState.account?.id != AppState.activeVault?.creatorId) {
-    //     if (AppState.activeVault?.isPrivate) {
-    //       console.log("very bad user");
-    //       AppState.activeVault = null;
-    //       AppState.keeps = null
-    //       router.push({name: 'Home'});
-    //     }
-    //   }
-    // });
 
     async function getVaultById() {
       try {
@@ -144,6 +136,7 @@ export default {
     }
     return {
       editVault() {
+        AppState.modal = 1;
         AppState.vaultForm = 1;
         Modal.getOrCreateInstance("#vaultForm").show();
       },
@@ -164,6 +157,9 @@ export default {
           console.error("[]", error);
           Pop.error(error);
         }
+      },
+      goBack(){
+        router.go(-1)
       },
       vault: computed(() => AppState.activeVault),
       size: computed(() => window.innerWidth <= 768),
