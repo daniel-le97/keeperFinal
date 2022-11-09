@@ -2,7 +2,7 @@
   <form @submit.prevent="handleAccountSubmit()">
     <!--  -->
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-between">
         <div class="col-md-6">
           <div class="mb-3">
             <label for="recipeTitle" class="form-label">name</label>
@@ -57,12 +57,12 @@
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary">submit Keep</button>
+            <button type="submit" class="btn btn-primary">done editing?</button>
           </div>
         </div>
-        <div class="col-md-6 d-flex justify-content-center p-0 rounded"
+        <div class="col-md-4 d-flex justify-content-center p-0 rounded"
             >
-          <div class="bg-dark img-card rounded" :class="cover? 'cover':''">
+          <div class="bg-dark img-card rounded p-4 d-flex justify-content-center" :class="cover? 'cover':''">
             <img
               :src="editable.picture"
               alt=""
@@ -126,6 +126,8 @@ export default {
 <style lang="scss" scoped>
 .cover{
   background-image: v-bind(cover);
+  background-position: center;
+  background-size: cover
 }
 .img-card {
   min-height: 20rem;

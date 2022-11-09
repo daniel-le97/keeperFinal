@@ -50,12 +50,12 @@
             <button type="submit" class="btn btn-primary">submit Keep</button>
           </div>
         </div>
-        <div class="col-md-6 d-flex justify-content-center p-0">
-          <div class="bg-dark img-card rounded">
+        <div class="col-md-6 d-flex justify-content-center  p-0">
+          <div class="bg-dark img-card rounded-end">
             <img
               :src="editable.img"
               alt=""
-              class="img-fluid"
+              class="img-fluid h  rounded p-1"
               v-if="editable.img"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
@@ -103,8 +103,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img{
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .img-card {
-  min-height: 20rem;
+  // min-height: 20rem;
   width: 20rem;
 }
 .buttons {

@@ -9,7 +9,7 @@
 			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>
 			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
-			<li><a  class="text-center"><i class="mdi mdi-heart fs-1" @click="getVaultForm()"></i></a></li>
+			<li><a  class="text-center"><i class="mdi mdi-safe fs-1" @click="getVaultForm()"></i></a></li>
 			<li><a href="#/account" class="d-flex justify-content-center align-items-center"><img :src="profileImg? profileImg: ''" height="40" alt="" class="rounded-circle"></a></li>
 			<!-- <li><a href="#/account"><i class="mdi mdi-account-edit-outline fs-1"></i></a></li> -->
 

@@ -8,7 +8,7 @@
     aria-hidden="true"
   >
     <div
-      class="modal-dialog  modal-fullscreen-sm-down modal-dialog-centered modal-scrollable"
+      class="modal-dialog  modal-fullscreen-sm modal-dialog-centered modal-scrollable"
       :class="!form ? 'modal-xl': 'modal-md'"
     >
       <div class="modal-content">

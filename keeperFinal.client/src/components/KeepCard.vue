@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card border-0 elevation-5 rounded position-relative beep"
+    class="card border-0  rounded position-relative selectable"
     @click="makeActive(keep)"
     >
     <img :src="keep?.img" class="card-img img-fluid rounded img" alt="" />
@@ -10,7 +10,7 @@
     <!-- <i class="mdi mdi-hospital mdi-rotate-45 position-absolute move fs-5" @click="deleteVaultKeep()"></i> -->
       <i class="mdi mdi-heart text-danger fs-1" v-if="vaulted"></i>
 
-      <h5 class="card-title">{{ keep?.name }}</h5>
+      <h5 class="card-title no-select">{{ keep?.name }}</h5>
       <img
         :src="keep.creator?.picture"
         class="person rounded-circle"
@@ -47,11 +47,12 @@ export default {
       }),
       async makeActive(keep) {
         try {
-          AppState.activeKeep = keep;
+          // AppState.activeKeep = keep;
           // console.log(keep);
-          if (!this.keepOwner) {
+          // if (!this.keepOwner) {
+          // }
             await keepsService.getKeepById(keep.id);
-          }
+          
           Modal.getOrCreateInstance("#detail").show();
         } catch (error) {
           Pop.error(error);
@@ -72,9 +73,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.beep::hover{
-  transform: scale(1.1);
+.card{
+  transition: all 0.25s ease;
+   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
+.card:hover{
+  transition: all .25s ease;
+  transform: scale(1.03);
+  filter: brightness(95%);
+    box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 12px 0 rgba(0, 0, 0, 0.12);
+}
+
+// .beep::hover{
+//   transform: scale(1.1);
+// }
 
 .move{
   top: -9px;

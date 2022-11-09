@@ -9,13 +9,13 @@
                 <div class="card-container">
                   <div class="top-card rounded position-relative">
                     <i
-                      class="mdi mdi-dots-horizontal fs-1 text-danger dots"
+                      class="mdi mdi-dots-horizontal fs-1 text-danger dots selectable  rounded"
                       @click="editAccount()"
                     ></i>
                     <img :src="account?.picture" alt="icon" />
                   </div>
-                  <div class="bottom-card d-flex justify-content-center pt-5">
-                    <h1>{{ account?.name }}</h1>
+                  <div class="bottom-card d-flex justify-content-center ">
+                  
                   </div>
                 </div>
               </div>
@@ -24,9 +24,9 @@
           <!--  -->
 
           <div class="row justify-content-evenly">
+            <div class="col-12 text-center fs-1 mb-5">{{account?.name}}</div>
             <div class="col-12 text-center">
-              <h1>vaults</h1>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-center gap-4 m-3" v-if="vaults">
                 <div
                   @click="togglePub()"
                   :class="publicNum ? 'text-primary fw-bold' : ''"
@@ -40,20 +40,12 @@
                   private <i class="mdi mdi-play mdi-rotate-90"></i>
                 </div>
               </div>
+              <div v-else> no vaults</div>
             </div>
-            <div class="col-6">
-              <div class="row collapse show" id="public" v-if="publics">
-                <div class="col-6" v-for="p in publics" :key="p?.id">
-                  <VaultCard :vault="p" v-if="p" />
-                </div>
-              </div>
-            </div>
-  
-
-            <div class="col-6">
-              <div class="row collapse show" id="private" v-if="privates">
-                <div class="col-md-6" v-for="priv in privates" :key="priv?.id">
-                  <VaultCard :vault="priv" />
+            <div class="col-12">
+              <div class="row collapse show" id="public" v-if="vaults">
+                <div class="col-3" v-for="v in vaults" :key="v?.id">
+                  <VaultCard :vault="v" v-if="v" />
                 </div>
               </div>
             </div>
@@ -85,25 +77,34 @@ export default {
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
-      publics: computed(() => AppState.publicVaults),
-      privates: computed(() => AppState.privateVaults),
+      vaults: computed(() => AppState.filterVaults),
       publicNum: computed(() => AppState.public),
       privateNum: computed(() => AppState.private),
       imgC: computed(() => `url(${AppState.account?.coverImg})`),
       editAccount() {
+        AppState.keepForm = 1
         Modal.getOrCreateInstance("#accountForm").show();
       },
       togglePub() {
-        if (AppState.private) {
-          AppState.public = !AppState.public
+        AppState.public = !AppState.public;
+        if (AppState.public == true) {
+          AppState.private = false
+          AppState.filterVaults = AppState.publicVaults
           return
         }
-        AppState.public = !AppState.public;
+        AppState.filterVaults = AppState.userVaults
         // AppState.private = !AppState.private
         console.log(AppState.public);
       },
       togglePrivate() {
         AppState.private = !AppState.private;
+        if (AppState.private == true) {
+          AppState.public = false
+          AppState.filterVaults = AppState.privateVaults
+          return
+        }
+        AppState.filterVaults = AppState.userVaults
+        // AppState.private = !AppState.private;
         // AppState.public = !AppState.public
         console.log(AppState.private);
       },
@@ -127,7 +128,7 @@ export default {
 
 .top-card {
   background-image: v-bind(imgC);
-  height: 150px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: flex-end;

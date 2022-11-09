@@ -15,6 +15,8 @@ export const AppState = reactive({
   public:false,
   private: false,
   /** @type {import('./models/Vault.js).Vault[]} */
+  userVaults:[],
+  /** @type {import('./models/Vault.js).Vault[]} */
   publicVaults:[],
   /** @type {import('./models/Vault.js).Vault[]} */
   privateVaults:[],
@@ -30,7 +32,7 @@ export const AppState = reactive({
   keepForm:0,
   vaultForm:0,
   offset: 0,
-  size: window.innerWidth <= 768
+
 })
 
 // class State extends EventEmitter {

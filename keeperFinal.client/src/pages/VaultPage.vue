@@ -13,24 +13,26 @@
                   alt=""
                 />
                 <div
-                  class="card-img-overlay d-flex flex-column justify-content-between text-shadow"
+                  class="card-img-overlay d-flex flex-column justify-content-end  text-shadow"
                 >
-                  <i class="mdi mdi-heart text-danger fs-1"></i>
+                  <!-- <i class="mdi mdi-heart text-danger fs-1"></i> -->
 
-                  <h1 class="card-title text-shadow text-center">
+                  <h1 class="card-title text-shadow text-center mb-4">
                     {{ vault?.name }}
                   </h1>
                 </div>
               </div>
 
-              <div class="dropend dots">
+              <div class="dropend dots" v-if="owner">
                 <button
                   class="btn border-0"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i class="mdi mdi-dots-horizontal fs-1 text-danger"></i>
+                  <i
+                    class="mdi mdi-dots-horizontal fs-1 text-danger selectable rounded"
+                  ></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark">
                   <li>
@@ -49,25 +51,40 @@
 
         <!-- -->
         <div class="container">
-          <div class="row mt-5 justify-content-center">
+          <div class="row justify-content-center">
             <div class="col-2 rounded-pill orange">
-              <div class="text-center fs-3" v-if="keeps.length">{{ keeps.length}}</div>
+              <div class="text-center fs-3" v-if="items.length">
+                {{ items.length }}
+              </div>
               <div class="text-center fs-3" v-else>vault is empty</div>
-              <!-- <div class="d-flex justify-content-center">
-                {{ keeps?.length }}
-              </div> -->
             </div>
           </div>
-          <div class="bricks mt-5 mb-5">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <masonry-wall
+                :items="items"
+                :column-width="size ? 150 : 250"
+                :gap="16"
+                class="mt-5"
+              >
+                <template #default="{ item, index }">
+                  <div>
+                    <KeepCard :keep="item" />
+                  </div>
+                </template>
+              </masonry-wall>
+            </div>
+          </div>
+          <!-- <div class="bricks mt-5 mb-5">
             <div
               class="min elevation-5"
               :class="keep ? '' : 'skeleton-loader'"
               v-for="(keep, index) in keeps"
               :key="keep.id"
             >
-              <KeepCard :keep="keep" />
+              <KeepCard :keep="keep" class="mt-5" />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -127,7 +144,6 @@ export default {
     }
     return {
       editVault() {
-        // console.log("hello");
         AppState.vaultForm = 1;
         Modal.getOrCreateInstance("#vaultForm").show();
       },
@@ -150,8 +166,11 @@ export default {
         }
       },
       vault: computed(() => AppState.activeVault),
-      // owner: computed(() => AppState.account.id == AppState.activeVault.creatorId && AppState.activeVault.isPrivate),
-      keeps: computed(() => AppState.keeps),
+      size: computed(() => window.innerWidth <= 768),
+      owner: computed(
+        () => AppState.account.id == AppState.activeVault.creatorId
+      ),
+      items: computed(() => AppState.keeps),
       length: computed(() => AppState.keeps.length < 5),
     };
   },
@@ -159,8 +178,8 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.orange{
-  background-color:  rgba(245, 97, 75, 0.715);
+.orange {
+  background-color: rgba(245, 97, 75, 0.715);
 }
 .text-shadow {
   color: aliceblue;
@@ -187,7 +206,7 @@ export default {
   }
 }
 .height {
-  height: 400px;
+  height: 350px;
   width: auto;
   object-fit: cover;
   object-position: center;

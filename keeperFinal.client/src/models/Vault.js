@@ -8,5 +8,6 @@ export class Vault{
     this.creatorId = data.creatorId
     this.createdAt = new Date(data.createdAt).toLocaleDateString()
     this.updatedAt = new Date( data.updatedAt).toLocaleDateString()
+    this.keeper = false
   }
 }

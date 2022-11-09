@@ -37,7 +37,10 @@ class VaultsService {
     console.log(res.data);
     AppState.activeVault = null;
     AppState.userVaults = AppState.userVaults.filter((v) => v.id != vaultId);
+    AppState.publicVaults = AppState.publicVaults.filter((v) => v.id != vaultId);
+    AppState.privateVaults = AppState.privateVaults.filter((v) => v.id != vaultId);
     AppState.vaultKeeps = AppState.vaultKeeps.filter((v) => v.vaultId != vaultId);
+    
   }
   async deleteVaultKeep(vaultKeepId) {
     const res = await api.delete(`api/vaultKeeps/${vaultKeepId}`);

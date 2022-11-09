@@ -3,8 +3,8 @@
     <div class="row justify-content-center mt-5">
       <div class="col-md-10">
         <div class="container" v-if="items">
-          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16" class="width">
-            <template #default="{ item, index }" class="hi d-block">
+          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16" >
+            <template #default="{ item, index }">
               <div >
                 <KeepCard :keep="item" />
               </div>

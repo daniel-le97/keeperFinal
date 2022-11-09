@@ -29,9 +29,8 @@ class AccountService {
     let publicV = vaults.filter((v) => v.isPrivate == false)
     AppState.publicVaults = publicV
     AppState.privateVaults = privateV
-    console.log(privateV, 'private');
-    // logger.log('[accountsService, userVaults]', AppState.userVaults )
-    // AppState.userVaults 
+    AppState.userVaults = vaults
+    AppState.filterVaults = AppState.userVaults
   }
   async getAccountVaultKeeps() {
     const res = await api.get("account/vaultKeeps");
