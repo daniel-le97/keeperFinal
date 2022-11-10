@@ -5,11 +5,11 @@
       <div class="row justify-content-between">
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="recipeTitle" class="form-label">name</label>
+            <label for="name" class="form-label">name</label>
             <input
               type="text"
               class="form-control"
-              id="recipeTitle"
+              id="name"
               v-model="editable.name"
               required
               minlength="2"
@@ -18,11 +18,11 @@
             />
           </div>
           <div class="mb-3">
-            <label for="recipeImg" class="form-label">add an picture!</label>
+            <label for="pictureInput" class="form-label">add an picture!</label>
             <input
               type="url"
               class="form-control"
-              id="recipeImg"
+              id="pictureInput"
               v-model="editable.picture"
               required
               title="add a picture"
@@ -56,7 +56,6 @@
           <div class="bg-dark img-card rounded-end p-4 d-flex justify-content-center align-items-center" :class="cover? 'cover':''">
             <img
               :src="editable.picture"
-              :title="editable.name"
               class="img-fluid rounded-circle"
               v-if="editable.picture"
             />

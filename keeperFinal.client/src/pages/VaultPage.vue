@@ -15,7 +15,7 @@
                 <div
                   class="card-img-overlay d-flex flex-column justify-content-end text-shadow "
                 >
-                  <i class="mdi mdi-lock me-2 mt-2 fs-4" v-if="vault.isPrivate"></i>
+                  <i class="mdi mdi-lock me-2 mt-2 fs-4"  title="private vault" v-if="vault.isPrivate"></i>
 
                   <h1 class="card-title text-shadow text-center">
                     {{ vault?.name }}
@@ -31,6 +31,7 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
+                    title="vault menu"
                   >
                     <i
                       class="mdi mdi-dots-horizontal h-25 align-top fs-1 text-danger selectable rounded"

@@ -25,28 +25,14 @@ class AccountService {
     const res = await api.get("account/vaults");
     // logger.log(res.data)
     let vaults = res.data.map((v) => new Vault(v));
-    // let privateV = vaults.filter(v => v.isPrivate == true)
-    // let publicV = vaults.filter((v) => v.isPrivate == false)
-    // AppState.publicVaults = publicV
-    // AppState.privateVaults = privateV
+  
     AppState.userVaults = vaults
     AppState.filterVaults = AppState.userVaults
   }
   async getAccountVaultKeeps() {
     const res = await api.get("account/vaultKeeps");
     AppState.vaultKeeps = res.data.map((v) => new VaultKeep(v));
-    //  let bestVaults = AppState.vaultKeeps.sort(v => v.vaultId)
-    // console.log(AppState.vaultKeeps.length);
-    //  const count = [];
 
-    // for (const vaultKeep of AppState.vaultKeeps) {
-    //   count.push([vaultKeep, AppState.vaultKeeps[vaultKeep]])
-    // }
-
-    //  AppState.vaultKeeps.forEach((v) => {
-    //    count[v,v.vaultId] = (count[v, v.vaultId] || 0) + 1;
-    //  });
-    //  console.log(count);
   }
 }
 

@@ -8,25 +8,26 @@ import { api } from "./AxiosService";
 class VaultsService {
   async getVaultById(vaultId) {
     const res = await api.get(`api/vaults/${vaultId}`);
-    console.log(res.data);
+    // console.log(res.data);
     AppState.activeVault = new Vault(res.data);
   }
   async getKeepsInVault(vaultId) {
     const res = await api.get(`api/vaults/${vaultId}/keeps`);
-    console.log(res.data);
+    // console.log(res.data);
     AppState.vKeeps = res.data.map((k) => new Keep(k));
-
   }
   async createVault(vaultData) {
     const res = await api.post("api/vaults", vaultData);
     // console.log(res.data);
     const vault = new Vault(res.data);
-    AppState.vaults = [...AppState.vaults, vault];
-    AppState.private = false
-    AppState.public = false
-    AppState.filterVaults = AppState.userVaults
-    AppState.userVaults = [...AppState.userVaults,vault]
-    
+    if (vault.isPrivate == false) {
+      AppState.vaults = [...AppState.vaults, vault];
+    }
+    AppState.private = false;
+    AppState.public = false;
+    AppState.filterVaults = AppState.userVaults;
+    AppState.userVaults = [...AppState.userVaults, vault];
+
     // AppState.filterVaults = [...AppState.filterVaults, vault];
     return vault;
   }
@@ -46,7 +47,9 @@ class VaultsService {
   async deleteVaultKeep(vaultKeepId) {
     const res = await api.delete(`api/vaultKeeps/${vaultKeepId}`);
     // console.log(res.data);
-    AppState.vKeeps = AppState.vKeeps.filter((k) => k.vaultKeepId != vaultKeepId);
+    AppState.vKeeps = AppState.vKeeps.filter(
+      (k) => k.vaultKeepId != vaultKeepId
+    );
   }
   async editVault(vaultData) {
     delete vaultData.createdAt;

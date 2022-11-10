@@ -5,11 +5,12 @@
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="recipeTitle" class="form-label">name</label>
+            <label for="name" class="form-label">name</label>
             <input
               type="text"
               class="form-control"
-              id="recipeTitle"
+              id="name"
+              title="name input"
               v-model="editable.name"
               required
               minlength="2"
@@ -17,23 +18,25 @@
             />
           </div>
           <div class="mb-3">
-            <label for="recipeImg" class="form-label">add an image!</label>
+            <label for="keepImage" class="form-label">add an image!</label>
             <input
               type="url"
               class="form-control"
-              id="recipeImg"
+              id="keepImage"
+              title="keep image input"
               v-model="editable.img"
               required
             />
           </div>
           <div class="mb-3">
-            <label for="recipeInstruction" class="form-label"
+            <label for="description" class="form-label"
               >Description</label
             >
             <textarea
               class="form-control"
-              id="recipeInstruction"
+              id="description"
               rows="3"
+              title="description input"
               v-model="editable.description"
               required
             ></textarea>
@@ -44,10 +47,11 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               aria-label="Close"
+              title="close button"
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary">submit Keep</button>
+            <button type="submit" title="submit keep button" aria-label="submit keep" class="btn btn-primary">submit Keep</button>
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-center  p-0">
@@ -55,6 +59,7 @@
             <img
               :src="editable.img"
               alt=""
+              title="image preview"
               class="img-fluid h  rounded p-1"
               v-if="editable.img"
             />

@@ -1,6 +1,7 @@
 <template>
   <div
     class="card border-0 my-3 elevation-5 rounded"
+    :title="vault.name"
     @click="makeActive(vault)"
   >
     <img :src="vault?.coverImg" :title="vault.name" class="card-img img" :alt="vault.name" />

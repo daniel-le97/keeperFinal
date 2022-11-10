@@ -22,6 +22,7 @@
             <i
               class="mdi mdi-delete selectable fs-4 rounded"
               v-if="owner && !routeVault"
+              title="delete keep"
               @click="deleteKeep(keep)"
             ></i>
           </div>
@@ -45,7 +46,7 @@
               >
                 {{ pick ? pick.name : "vaults" }}
               </a>
-              <div class="dropdown-menu scroll" aria-labelledby="triggerId">
+              <div class="dropdown-menu scroll" title="vault options" aria-labelledby="triggerId">
                 <a
                   class="dropdown-item"
                   v-for="v in vaults"
@@ -64,7 +65,7 @@
             </button> -->
           </div>
           <div v-else class="align-self-center">
-            <button class="btn bg-danger" v-if="vaultOwner" @click="deleteVaultKeep()">
+            <button class="btn bg-danger" v-if="vaultOwner" title="delete vaults keep" @click="deleteVaultKeep()">
               remove
             </button>
           </div>
@@ -73,7 +74,8 @@
             <div class="d-flex align-items-center gap-3 ms-2">
               <img
                 :src="keep?.creator.picture"
-                alt=""
+                :alt="keep?.creator.name"
+                :title="keep?.creator.name"
                 height="50"
                 class="rounded-circle shadow-2"
                 @click="getProfile(keep.creatorId)"
