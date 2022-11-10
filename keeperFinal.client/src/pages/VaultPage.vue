@@ -17,8 +17,9 @@
                 >
                   <!-- <i class="mdi mdi-heart text-danger fs-1"></i> -->
 
-                  <h1 class="card-title text-shadow text-center mb-4">
+                  <h1 class="card-title text-shadow text-center">
                     {{ vault?.name }}
+                    <div class="fs-6 mt-5"> By {{vault?.creator.name}}</div>
                   </h1>
                 </div>
               </div>
@@ -55,7 +56,7 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-6 rounded-pill orange">
-              <div class="text-center fs-3" v-if="items.length">
+              <div class="text-center text-shadow fs-3" v-if="items.length">
                 {{ items.length }}
               </div>
               <div class="text-center fs-3" v-else>vault is empty</div>

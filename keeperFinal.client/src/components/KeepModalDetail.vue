@@ -1,14 +1,14 @@
 <template>
-  <div class="container-fluid" v-if="keep">
+  <div class="container-fluid position-relative" v-if="keep">
     <div class="row">
       <div class="col-md-6 p-0">
         <div class="img rounded-start"></div>
       </div>
       <div class="col-md-6 d-flex justify-content-between flex-column">
-        <div class="d-flex gap-5 justify-content-center mt-3">
+        <div class="d-flex gap-2 justify-content-center mt-3">
           <div class="d-flex gap-2">
             <i class="mdi mdi-eye mx-1 fs-3 no-select" title="Views count"></i>
-            <span>{{ keep?.views }}</span>
+            <span class="align-self-center">{{ keep?.views }}</span>
           </div>
           <div class="d-flex gap-2 align-items-start">
             <!-- <img src="../assets/img/Logo (1).png" alt="" class="no-select" /> -->
@@ -16,31 +16,32 @@
               class="mdi mdi-alpha-k-box-outline fs-3 no-select"
               title="Amount of times this keep has been vaulted"
             ></i>
-            <span>{{ keep?.kept }}</span>
+            <span class="align-self-center">{{ keep?.kept }}</span>
           </div>
-          <div>
+          <div class="align-self-center icon me-1">
             <i
-              class="mdi mdi-delete selectable fs-2 p-1 rounded"
+              class="mdi mdi-delete selectable fs-4 rounded"
               v-if="owner && !routeVault"
               @click="deleteKeep(keep)"
             ></i>
           </div>
         </div>
         <div>
-          <h1>{{ keep?.name }}</h1>
-          <p>{{ keep?.description }}</p>
+          <h1 class="text-center">{{ keep?.name }}</h1>
+          <p class="px-md-5 px-sm-2">{{ keep?.description }}</p>
         </div>
         <div class="d-flex justify-content-between mb-2">
           <!--  inject vault stuff here TODO -->
-          <div class="d-flex gap-2" v-if="!routeVault">
-            <div class="dropup open d-flex align-items-end">
+          <div class="d-flex gap-2" v-if="!routeVault && loggedIn">
+            <div class="dropup open d-flex align-items-end ">
               <a
-                class="btn btn-secondary dropdown-toggle"
+                class="btn btn-secondary dropdown-toggle btnA text-truncate"
                 type="button"
                 id="triggerId"
                 data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                title="vaults"
               >
                 {{ pick ? pick.name : "vaults" }}
               </a>
@@ -48,22 +49,22 @@
                 <a
                   class="dropdown-item"
                   v-for="v in vaults"
-                  @click="pickVault(v)"
+                  @click="pickVault(v,keep)"
                   >{{ v?.name }}
-                  <i v-if="v?.keeper" class="mdi mdi-heart fs-1 text-danger"></i
+                  <i v-if="v?.keeper" class="mdi mdi-lock fs-6 text-dark"></i
                 ></a>
               </div>
             </div>
-            <button
+            <!-- <button
               class="btn btn-primary"
               @click="saveKeep(keep)"
               :disabled="!pick"
             >
               save
-            </button>
+            </button> -->
           </div>
           <div v-else class="align-self-center">
-            <button class="btn bg-danger" @click="deleteVaultKeep()">
+            <button class="btn bg-danger" v-if="loggedIn" @click="deleteVaultKeep()">
               remove
             </button>
           </div>
@@ -109,6 +110,7 @@ export default {
     return {
       routeVault: computed(() => route.name == "Vault"),
       owner: computed(() => AppState.account?.id == props.keep.creatorId),
+      loggedIn: computed(() => AppState.account?.id),
       vaults: computed(() => AppState.userVaults),
       kept: computed(() => {
         let kept = AppState.vaultKeeps.find(
@@ -117,8 +119,13 @@ export default {
         return kept;
       }),
       pick: computed(() => AppState.vaultPick),
-      pickVault(v) {
-        AppState.vaultPick = v;
+     async pickVault(vault, keep) {
+        try {
+          AppState.vaultPick = vault
+            await this.saveKeep(keep)
+          } catch (error) {
+            Pop.error(error)
+          }
       },
       propImg: computed(() => `url(${props.keep?.img})`),
       async deleteKeep(keep) {
@@ -154,7 +161,7 @@ export default {
           if (this.kept) {
             const yes = await swalsService.imagePop(
               this.pick.coverImg,
-              "undo?",
+              "go to keep in vault?",
               "center",
               `${this.pick.name} already has ${keep.name}`
             );
@@ -190,6 +197,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.btnA{
+  width: 150px;
+}
 .scroll {
   max-height: 20vh;
   overflow-y: auto;

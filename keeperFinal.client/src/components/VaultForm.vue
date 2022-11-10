@@ -6,7 +6,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-6 ">
           <div class="text-center fw-bold" v-if="vaultForm == 0">vault creation</div>
           <div class="text-center fw-bold" v-else>vault edit</div>
           <div class="mb-3">
@@ -16,6 +16,7 @@
               class="form-control"
               id="recipeTitle"
               v-model="editable.name"
+              title="name"
               required
               minlength="2"
               maxlength="100"
@@ -27,6 +28,7 @@
               type="url"
               class="form-control"
               id="recipeImg"
+              title="image input"
               v-model="editable.coverImg"
               required
             />
@@ -36,7 +38,7 @@
             <input
               type="checkbox"
               class="form-control w-25"
-              :class="editable.isPrivate ? 'bg-orange' : ''"
+            title="private checkbox"
               id="vaultP"
               width="50"
               v-model="editable.isPrivate"
@@ -67,31 +69,18 @@
             <button type="submit" class="btn btn-primary" v-else>update Vault</button>
           </div>
         </div>
-               <div class="col-md-6 d-flex justify-content-center  p-0">
+               <div class="col-md-6 d-flex justify-content-center  p-0 ">
                    <i class="mdi mdi-lock text-shadow p-2 fs-4" v-if="editable.isPrivate"></i>
-          <div class="bg-dark img-card rounded-end">
+          <div class="bg-dark img-card rounded-end mb-2 mb-md-0 " >
             <img
               :src="editable.coverImg"
               alt=""
-              class="img-fluid  rounded p-1"
+              class="img-fluid hi rounded p-1"
               v-if="editable.coverImg"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
           </div>
         </div>
-        <!-- <div class="col-md-6 d-flex flex-row justify-content-center p-0">
-          <i class="mdi mdi-lock" v-if="editable.isPrivate"></i>
-          
-          <div class=" img-card d-flex p-3 position-relative">
-            <img
-              :src="editable.coverImg"
-              alt=""
-              class="img-fluid rounded"
-              v-if="editable.coverImg"
-            />
-            <div class="text-center" v-else><span>no image yet</span></div>
-          </div>
-        </div> -->
       </div>
     </div>
   </form>
@@ -155,6 +144,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+input:checked{
+  background:  rgb(246, 109, 88);
+}
 .bg-orange{
  background:  rgb(238, 77, 52);
 }
@@ -180,6 +172,26 @@ object-position: center;
 .img-card {
   // min-height: 20rem;
   width: 20rem;
+}
+//when screen is 768px OR LESS
+@media only screen and (max-width: 768px){
+.img-card{
+  height: 300px;
+  border-bottom-left-radius: 2.5%;
+  border-top-left-radius: 2.5%;
+  // margin-bottom: 1rem;
+}
+img{
+  width:325px;
+  object-fit: cover;
+  object-position: center;
+}
+.mdi-lock{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 }
 .buttons {
   bottom: 20px;

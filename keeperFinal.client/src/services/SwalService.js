@@ -22,7 +22,7 @@ class SwalsService {
       showConfirmButton: true,
       focusConfirm: true,
       confirmButtonText: `${btnText}`,
-      cancelButtonText: 'send!',
+      cancelButtonText: 'cancel',
       confirmButtonAriaLabel: "undo",
       timer: 2500,
       timerProgressBar: true,

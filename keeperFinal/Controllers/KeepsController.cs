@@ -71,11 +71,11 @@ public class KeepsController : ControllerBase
 
     
       [HttpGet]
-      public ActionResult<List<Keep>> GetAllKeeps([FromQuery]  int offset)
+      public ActionResult<List<Keep>> GetAllKeeps()
       {
         try
         {
-          List<Keep> example = _keepsService.GetAllKeeps(offset);
+          List<Keep> example = _keepsService.GetAllKeeps();
           return Ok(example);
         }
         catch (Exception e)

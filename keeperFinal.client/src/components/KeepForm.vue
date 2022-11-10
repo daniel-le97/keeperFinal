@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-center  p-0">
-          <div class="bg-dark img-card rounded-end">
+          <div class="bg-dark img-card rounded-end mb-2 mb-md-0">
             <img
               :src="editable.img"
               alt=""
@@ -114,5 +114,24 @@ img{
   bottom: 20px;
   right: 30px;
   z-index: 10;
+}
+@media only screen and (max-width: 768px){
+.img-card{
+  height: 300px;
+  border-bottom-left-radius: 2.5%;
+  border-top-left-radius: 2.5%;
+ 
+}
+img{
+  width:325px;
+  object-fit: cover;
+  object-position: center;
+}
+.mdi-lock{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 }
 </style>

@@ -25,10 +25,10 @@ class AccountService {
     const res = await api.get("account/vaults");
     // logger.log(res.data)
     let vaults = res.data.map((v) => new Vault(v));
-    let privateV = vaults.filter(v => v.isPrivate == true)
-    let publicV = vaults.filter((v) => v.isPrivate == false)
-    AppState.publicVaults = publicV
-    AppState.privateVaults = privateV
+    // let privateV = vaults.filter(v => v.isPrivate == true)
+    // let publicV = vaults.filter((v) => v.isPrivate == false)
+    // AppState.publicVaults = publicV
+    // AppState.privateVaults = privateV
     AppState.userVaults = vaults
     AppState.filterVaults = AppState.userVaults
   }

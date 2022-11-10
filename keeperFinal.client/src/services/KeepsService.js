@@ -1,19 +1,16 @@
+import { offset } from "@popperjs/core";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { VaultKeep } from "../models/VaultKeep";
 import { api } from "./AxiosService";
 
 class KeepsService {
-  async getAllKeeps(offset) {
-    const res = await api.get("api/keeps", {
-      params: {
-        offset: offset,
-      },
-    });
+  async getAllKeeps() {
+    const res = await api.get("api/keeps");
     console.log(res.data);
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offset += keeps.length;
-    console.log(AppState.offset);
+    // console.log(AppState.offset);
     AppState.keeps = [...AppState.keeps, ...keeps];
   }
   async saveKeep(vaultKeep) {
@@ -28,15 +25,15 @@ class KeepsService {
   }
   async getKeepById(keep) {
     // console.log(keep);
-    let vaultKeepId = keep.vaultKeepId
-  
+    let vaultKeepId = keep.vaultKeepId;
+
     const res = await api.get(`api/keeps/${keep.id}`);
     // console.log(res.data);
-    let newKeep = new Keep(res.data)
-    AppState.activeKeep = newKeep
+    let newKeep = new Keep(res.data);
+    AppState.activeKeep = newKeep;
 
     if (vaultKeepId) {
-      AppState.activeKeep.vaultKeepId = vaultKeepId
+      AppState.activeKeep.vaultKeepId = vaultKeepId;
     }
     // console.log(AppState.activeKeep);
 
@@ -44,15 +41,12 @@ class KeepsService {
       let hi = AppState.vaultKeeps.find(
         (vk) => vk.vaultId == v.id && vk.keepId == keep.id
       );
-
       if (hi) {
         v.keeper = true;
       } else {
         v.keeper = false;
       }
     }
-
-  
   }
   async createKeep(keepData) {
     const res = await api.post("api/keeps", keepData);

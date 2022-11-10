@@ -2,19 +2,21 @@
   <div
     class="card border-0  rounded position-relative selectable"
     @click="makeActive(keep)"
+    :title="keep?.name"
     >
-    <img :src="keep?.img" class="card-img img-fluid rounded img" alt="" />
+    <img :src="keep?.img" :alt="keep.name" class="card-img img-fluid rounded img" alt="" />
     <div
     class="card-img-overlay align-items-end d-flex justify-content-between text-shadow "
     >
     <!-- <i class="mdi mdi-hospital mdi-rotate-45 position-absolute move fs-5" @click="deleteVaultKeep()"></i> -->
-      <i class="mdi mdi-heart text-danger fs-1" v-if="vaulted"></i>
+      <!-- <i class="mdi mdi-heart text-danger fs-1" v-if="vaulted"></i> -->
 
       <h5 class="card-title no-select">{{ keep?.name }}</h5>
       <img
         :src="keep.creator?.picture"
         class="person rounded-circle"
-        alt=""
+        :title="keep.creator?.name"
+        :alt="keep.creator.name"
         height="40"
         width="40"
       />

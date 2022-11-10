@@ -4,7 +4,7 @@
   </header>
   <main>
     <router-view />
-    <MenuButton/>
+    <MenuButton v-if="loggedIn"/>
     <!-- <button class="buttonFix box">+</button> -->
   </main>
   <!-- modals -->
@@ -42,7 +42,8 @@ export default {
     // })
     return {
       appState: computed(() => AppState),
-      activeKeep: computed(() => AppState.activeKeep)
+      activeKeep: computed(() => AppState.activeKeep),
+      loggedIn: computed(() => AppState.account?.id)
     }
   },
   components: { Navbar, KeepModal, KeepModalDetail, MenuButton, KeepForm, VaultForm, AccountForm }

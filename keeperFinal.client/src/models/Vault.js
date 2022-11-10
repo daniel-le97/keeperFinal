@@ -1,3 +1,5 @@
+import { Profile } from "./Profile"
+
 export class Vault{
   constructor(data){
     this.id = data.id
@@ -8,6 +10,7 @@ export class Vault{
     this.creatorId = data.creatorId
     this.createdAt = new Date(data.createdAt).toLocaleDateString()
     this.updatedAt = new Date( data.updatedAt).toLocaleDateString()
+    this.creator = new Profile(data.creator)
     this.keeper = false
   }
 }

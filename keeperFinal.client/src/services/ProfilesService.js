@@ -13,9 +13,9 @@ class  ProfilesService {
   }
   async getProfileKeeps(id){
     const res = await api.get(`api/profiles/${id}/keeps`)
-    console.log(res.data);
+    // console.log(res.data);
    AppState.keeps = res.data.map(k => new Keep(k))
-    logger.log('[profile, keeps]', AppState.keeps)
+    // logger.log('[profile, keeps]', AppState.keeps)
   }
   async getProfileVaults(id){
     const res = await api.get('api/profiles/'+ id + '/vaults')

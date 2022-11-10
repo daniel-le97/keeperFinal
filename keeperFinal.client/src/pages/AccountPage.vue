@@ -11,6 +11,7 @@
                     <i
                       class="mdi mdi-dots-horizontal fs-1 text-danger dots selectable  rounded"
                       @click="editAccount()"
+                      title="edit account"
                     ></i>
                     <img :src="account?.picture" alt="icon" />
                   </div>
@@ -43,8 +44,8 @@
               <div v-else> no vaults</div>
             </div>
             <div class="col-12">
-              <div class="row collapse show" id="public" v-if="vaults">
-                <div class="col-3" v-for="v in vaults" :key="v?.id">
+              <div class="row collapse show justify-content-evenly" id="public" v-if="vaults">
+                <div :class="length? 'col-md-6': 'col-md-3'" v-for="v in vaults" :key="v?.id">
                   <VaultCard :vault="v" v-if="v" />
                 </div>
               </div>
@@ -78,6 +79,7 @@ export default {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.filterVaults),
+      length: computed(() => AppState.filterVaults.length <= 4),
       publicNum: computed(() => AppState.public),
       privateNum: computed(() => AppState.private),
       imgC: computed(() => `url(${AppState.account?.coverImg})`),
@@ -89,7 +91,7 @@ export default {
         AppState.public = !AppState.public;
         if (AppState.public == true) {
           AppState.private = false
-          AppState.filterVaults = AppState.publicVaults
+          AppState.filterVaults = AppState.userVaults.filter(v => v.isPrivate != true)
           return
         }
         AppState.filterVaults = AppState.userVaults
@@ -98,7 +100,7 @@ export default {
         AppState.private = !AppState.private;
         if (AppState.private == true) {
           AppState.public = false
-          AppState.filterVaults = AppState.privateVaults
+          AppState.filterVaults = AppState.userVaults.filter(v => v.isPrivate == true)
           return
         }
         AppState.filterVaults = AppState.userVaults

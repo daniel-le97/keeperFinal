@@ -3,6 +3,7 @@
     <div class="row justify-content-center mt-5">
       <div class="col-md-10">
         <div class="container" v-if="items">
+
           <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16" >
             <template #default="{ item, index }">
               <div >
@@ -36,31 +37,32 @@ import { keepsService } from "../services/KeepsService";
 import Pop from "../utils/Pop";
 import { ref } from "vue";
 
+
 export default {
   setup() {
     async function getAllKeeps() {
       try {
-        await keepsService.getAllKeeps(AppState.offset);
+        await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error);
       }
     }
 
-    let timer = setTimeout(getAllKeeps, 1000)
+    // let timer = setTimeout(getAllKeeps, 1000)
     function infiniteScroll() {
-      window.onscroll = (e) => {
+      window.onscroll = () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight >=
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
           // getCurrentRecipes();
-          timer
-          // getAllKeeps()
-          console.log('hi');
+          // timer
+          // getAllKeeps();
+          // console.log("hi");
         }
       };
     }
-    
+
     onMounted(() => {
       getAllKeeps();
       infiniteScroll();
@@ -70,12 +72,12 @@ export default {
       size: computed(() => window.innerWidth <= 768),
     };
   },
-  components: { KeepCard },
+  components: { KeepCard, },
 };
 </script>
 
 <style scoped lang="scss">
-.hi{
+.hi {
   height: min-content;
 }
 .bricks {

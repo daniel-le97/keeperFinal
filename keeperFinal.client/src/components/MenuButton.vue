@@ -1,70 +1,98 @@
 <template>
   <div class="fix">
-<nav>
-	<div class="toggle">
-		<input type="checkbox">
-    <span class="btn" ></span>
-    <!-- <i class="mdi mdi-heart"></i> -->
-    <ul>
-			<li><a href="#/" class="text-center"><i class="mdi mdi-home fs-1"></i></a></li>
-			<li><a  class="text-center"><i class="mdi mdi-account fs-1" @click="getProfile()"></i></a></li>
-			<li><a  class="text-center"><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i></a></li>
-			<li><a  class="text-center"><i class="mdi mdi-safe fs-1" @click="getVaultForm()"></i></a></li>
-			<li><a href="#/account" class="d-flex justify-content-center align-items-center"><img :src="profileImg? profileImg: ''" height="40" alt="" class="rounded-circle"></a></li>
-			<!-- <li><a href="#/account"><i class="mdi mdi-account-edit-outline fs-1"></i></a></li> -->
-
-		</ul>
-	</div>
-</nav>
+    <nav title="navigation button">
+      <div class="toggle">
+        <input type="checkbox" />
+        <span class="btn"></span>
+        <!-- <i class="mdi mdi-heart"></i> -->
+        <ul>
+          <li>
+            <a  title="home button" class="text-center"
+              ><i class="mdi mdi-home fs-1" @click="home()"></i
+            ></a>
+          </li>
+          <li>
+            <a title="profile button" class="text-center"
+              ><i class="mdi mdi-account fs-1" @click="getProfile()"></i
+            ></a>
+          </li>
+          <li>
+            <a title="create a keep" class="text-center"
+              ><i class="mdi mdi-plus fs-1" @click="getKeepForm()"></i
+            ></a>
+          </li>
+          <li>
+            <a title="create a vault" class="text-center"
+              ><i class="mdi mdi-safe fs-1" @click="getVaultForm()"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="#/account"
+              title="account button"
+              class="d-flex justify-content-center align-items-center"
+              ><img
+                :src="profileImg ? profileImg : ''"
+                height="35"
+                alt=""
+                class="rounded-circle"
+            /></a>
+          </li>
+          <!-- <li><a href="#/account"><i class="mdi mdi-account-edit-outline fs-1"></i></a></li> -->
+        </ul>
+      </div>
+    </nav>
   </div>
-
 </template>
 
 <script>
-import { computed } from '@vue/reactivity';
-import { Modal } from 'bootstrap';
+import { computed } from "@vue/reactivity";
+import { Modal } from "bootstrap";
 
-import { AppState } from '../AppState';
-import { router } from '../router';
-import { profilesService } from '../services/ProfilesService';
-import Pop from '../utils/Pop';
+import { AppState } from "../AppState";
+import { router } from "../router";
+import { profilesService } from "../services/ProfilesService";
+import Pop from "../utils/Pop";
 
 export default {
   setup() {
     return {
-      profileImg: computed (() => AppState.account.picture),
-      getKeepForm(){
-        AppState.keepForm = 0
-        AppState.modal = 1
-        Modal.getOrCreateInstance('#keepForm').show()
+      profileImg: computed(() => AppState.account.picture),
+      getKeepForm() {
+        AppState.keepForm = 0;
+        AppState.modal = 1;
+        Modal.getOrCreateInstance("#keepForm").show();
       },
-      getVaultForm(){
-        AppState.vaultForm = 0
-        AppState.modal = 1
-        Modal.getOrCreateInstance('#vaultForm').show()
+      getVaultForm() {
+        AppState.vaultForm = 0;
+        AppState.modal = 1;
+        Modal.getOrCreateInstance("#vaultForm").show();
       },
-      async getProfile(){
+      async getProfile() {
         try {
-            router.push({name: 'Profile', params:{id: AppState.account.id}})
-          } catch (error) {
-            Pop.error(error)
-          }
-      }
+          router.push({ name: "Profile", params: { id: AppState.account.id } });
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
+      home() {
+        document.documentElement.scrollTop = 0;
+        router.push({ name: "Home" });
+      },
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.fix{
+.fix {
   position: fixed;
   bottom: 90px;
   right: 100px;
 }
-li::marker{
-  content:'';
+li::marker {
+  content: "";
 }
-
 
 nav {
   position: absolute;
@@ -73,8 +101,6 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
- 
 
   .toggle {
     height: 100%;
@@ -111,7 +137,7 @@ nav {
 
     &:hover {
       ~ .btn {
-        background-color:  rgb(238, 77, 52);
+        background-color: rgb(238, 77, 52);
       }
     }
   }
@@ -120,7 +146,7 @@ nav {
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: rgb(250,119,100);
+    background-color: rgb(250, 119, 100);
     border-radius: 50%;
     cursor: pointer;
     transition: transform 1.25s cubic-bezier(0.8, 0, 0.2, 1),
@@ -157,7 +183,6 @@ nav {
     position: absolute;
     top: 20%;
     left: 50%;
-   
   }
   li {
     transition: transform 1s cubic-bezier(1, 0, 0.3, 1);
@@ -167,7 +192,7 @@ nav {
       width: 40px;
       height: 40px;
       line-height: 42px;
-      background-color:rgb(250,119,100);
+      background-color: rgb(250, 119, 100);
       border-radius: 50%;
       top: 40%;
       left: 50%;
