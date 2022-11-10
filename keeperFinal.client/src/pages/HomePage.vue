@@ -4,7 +4,7 @@
       <div class="col-md-10">
         <div class="container" v-if="items">
 
-          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16" >
+          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16"  class="mb-5">
             <template #default="{ item, index }">
               <div >
                 <KeepCard :keep="item" />
@@ -42,7 +42,7 @@ export default {
   setup() {
     async function getAllKeeps() {
       try {
-        await keepsService.getAllKeeps();
+        await keepsService.getAllKeeps(AppState.offset);
       } catch (error) {
         Pop.error(error);
       }
@@ -54,10 +54,14 @@ export default {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight >=
           document.documentElement.offsetHeight;
+          let scroller = AppState.scroll
+          if (scroller) {
+            return
+          }
         if (bottomOfWindow) {
           // getCurrentRecipes();
           // timer
-          // getAllKeeps();
+          getAllKeeps();
           // console.log("hi");
         }
       };

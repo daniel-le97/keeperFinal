@@ -31,8 +31,9 @@ export const AppState = reactive({
   vaultKeeps: [],
   keepForm:0,
   vaultForm:0,
-  offset: 0,
+  offset: 30,
   modal: 0,
+  scroll: 0
 
 })
 
