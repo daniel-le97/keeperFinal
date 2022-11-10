@@ -32,9 +32,10 @@
               title="account button"
               class="d-flex justify-content-center align-items-center"
               ><img
-                :src="profileImg ? profileImg : ''"
+                :src="profile.picture"
                 height="35"
-                alt=""
+                :title="profile.name"
+                :alt="profile.name"
                 class="rounded-circle"
             /></a>
           </li>
@@ -57,7 +58,7 @@ import Pop from "../utils/Pop";
 export default {
   setup() {
     return {
-      profileImg: computed(() => AppState.account.picture),
+      profile: computed(() => AppState.account),
       getKeepForm() {
         AppState.keepForm = 0;
         AppState.modal = 1;

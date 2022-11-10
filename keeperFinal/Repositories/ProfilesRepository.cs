@@ -39,6 +39,7 @@ public class ProfilesRepository : BaseRepository
                 FROM vaults vault
                 JOIN accounts account ON account.id = vault.creatorId
                 where vault.creatorId = @profileId
+                AND vault.isPrivate <> 1
                 GROUP BY vault.id
              
                      ; ";

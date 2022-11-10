@@ -44,6 +44,7 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               aria-label="Close"
+              title="close account form"
             >
               close
             </button>
@@ -55,7 +56,7 @@
           <div class="bg-dark img-card rounded-end p-4 d-flex justify-content-center align-items-center" :class="cover? 'cover':''">
             <img
               :src="editable.picture"
-              alt=""
+              :title="editable.name"
               class="img-fluid rounded-circle"
               v-if="editable.picture"
             />
@@ -90,14 +91,12 @@ export default {
     return {
       async handleAccountSubmit() {
         try {
-          console.log(editable.value);
-          // return
-          const account = await accountService.editAccount(editable.value);
-          // const yes = await swalsService.imagePop(editable.value.img, "undo", 'top-end', 'keep created undo?' );
-          // if (yes) {
-          //   await keepsService.deleteKeep(keep.id);
-          //   Pop.success(`${keep.name} deleted`);
-          // }
+
+          const yes = await Pop.confirm('Are you sure?', 'submit account info?', 'confirm', 'info')
+                if (!yes) {
+                  return
+                }
+          await accountService.editAccount(editable.value);
           Pop.success('account successfully edited')
           Modal.getOrCreateInstance("#accountForm").hide();
         } catch (error) {

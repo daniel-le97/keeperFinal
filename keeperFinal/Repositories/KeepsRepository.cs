@@ -28,6 +28,7 @@ public class KeepsRepository : BaseRepository
                 JOIN accounts account ON account.id = keep.creatorId
                 LEFT JOIN vaultKeeps vaultKeep ON vaultKeep.keepId = keep.id
                 GROUP BY keep.id
+                order by keep.createdAt desc
                 limit 30 offset @offset
          
       

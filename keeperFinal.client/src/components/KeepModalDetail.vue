@@ -28,7 +28,7 @@
         </div>
         <div>
           <h1 class="text-center">{{ keep?.name }}</h1>
-          <p class="px-md-5 px-sm-2">{{ keep?.description }}</p>
+          <p class="px-md-5 px-sm-2 d-flex justify-content-center">{{ keep?.description }}</p>
         </div>
         <div class="d-flex justify-content-between mb-2">
           <!--  inject vault stuff here TODO -->
@@ -64,7 +64,7 @@
             </button> -->
           </div>
           <div v-else class="align-self-center">
-            <button class="btn bg-danger" v-if="loggedIn" @click="deleteVaultKeep()">
+            <button class="btn bg-danger" v-if="vaultOwner" @click="deleteVaultKeep()">
               remove
             </button>
           </div>
@@ -110,6 +110,7 @@ export default {
     return {
       routeVault: computed(() => route.name == "Vault"),
       owner: computed(() => AppState.account?.id == props.keep.creatorId),
+      vaultOwner: computed(() => AppState.account?.id == AppState.activeVault?.creatorId),
       loggedIn: computed(() => AppState.account?.id),
       vaults: computed(() => AppState.userVaults),
       kept: computed(() => {
@@ -173,6 +174,9 @@ export default {
               });
               Modal.getOrCreateInstance("#detail").hide();
               return;
+            }
+            if (!yes) {
+              return
             }
           }
           let hi = AppState.userVaults.find((v) => v.id == this.pick.id);

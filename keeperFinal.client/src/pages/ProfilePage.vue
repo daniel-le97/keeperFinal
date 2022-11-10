@@ -79,7 +79,7 @@
 <script>
 import Pop from "../utils/Pop";
 import { profilesService } from "../services/ProfilesService";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import ProfileDetail from "../components/ProfileDetail.vue";
 import { computed } from "@vue/reactivity";
@@ -90,6 +90,7 @@ import VaultCard from "../components/VaultCard.vue";
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter()
     onMounted(() => {
       getProfile();
       getProfileKeeps();
@@ -99,6 +100,7 @@ export default {
       try {
         await profilesService.getProfile(route.params.id);
       } catch (error) {
+        router.push({name: 'Home'})
         Pop.error(error);
       }
     }

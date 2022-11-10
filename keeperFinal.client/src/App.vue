@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { computed, watchEffect } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from './AppState'
 import AccountForm from './components/AccountForm.vue'
 import KeepForm from './components/KeepForm.vue'
@@ -33,12 +33,38 @@ import KeepModalDetail from './components/KeepModalDetail.vue'
 import MenuButton from './components/MenuButton.vue'
 import Navbar from './components/Navbar.vue'
 import VaultForm from './components/VaultForm.vue'
+import { keepsService } from './services/KeepsService'
+import { useRoute } from 'vue-router'
+import { vaultsService } from './services/VaultsService'
 
 export default {
   setup() {
-    // watchEffect(() =>{
-    //   let modal = document.querySelector('modal')
-    //   modal.addEventListener('hide',)
+    // async function infiniteScroll() {
+    //   window.onscroll = async()=> {
+    //     let bottomOfWindow =
+    //       document.documentElement.scrollTop + window.innerHeight + 10 >=
+    //       document.documentElement.offsetHeight;
+    //       let scroller = AppState.scroll
+    //       if (scroller) {
+    //         return
+    //       }
+    //     if (bottomOfWindow) {
+    //       // getCurrentRecipes();
+    //       // timer
+    //        await getCurrentKeeps()
+    //       // console.log("hi");
+    //     }
+    //   };
+    // }
+    // const route = useRoute()
+    // async function getCurrentKeeps(){
+    //      if (route.name == 'Home') {
+    //        await keepsService.getAllKeeps(AppState.offset)
+    //      }
+      
+    // }
+    // onMounted(() =>{
+    //   infiniteScroll()
     // })
     return {
       appState: computed(() => AppState),

@@ -83,6 +83,7 @@ export default {
       publicNum: computed(() => AppState.public),
       privateNum: computed(() => AppState.private),
       imgC: computed(() => `url(${AppState.account?.coverImg})`),
+      size: computed(() => window.innerWidth <= 768),
       editAccount() {
         AppState.modal = 1
         Modal.getOrCreateInstance("#accountForm").show();

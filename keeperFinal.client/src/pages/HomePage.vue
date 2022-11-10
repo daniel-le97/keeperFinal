@@ -52,7 +52,7 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight >=
+          document.documentElement.scrollTop + (window.innerHeight + 10) >=
           document.documentElement.offsetHeight;
           let scroller = AppState.scroll
           if (scroller) {
@@ -61,8 +61,8 @@ export default {
         if (bottomOfWindow) {
           // getCurrentRecipes();
           // timer
-          getAllKeeps();
-          // console.log("hi");
+         getAllKeeps();
+          console.log("hi");
         }
       };
     }

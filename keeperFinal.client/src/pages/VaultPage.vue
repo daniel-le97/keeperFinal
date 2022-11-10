@@ -9,13 +9,13 @@
               <div class="card border-0 my-3 elevation-5 rounded">
                 <img
                   :src="vault?.coverImg"
-                  class="card-img img-fluid height"
+                  class="card-img img-fluid height position relative"
                   alt=""
-                />
+                  :title="vault.name"                />
                 <div
-                  class="card-img-overlay d-flex flex-column justify-content-end text-shadow"
+                  class="card-img-overlay d-flex flex-column justify-content-end text-shadow "
                 >
-                  <!-- <i class="mdi mdi-heart text-danger fs-1"></i> -->
+                  <i class="mdi mdi-lock me-2 mt-2 fs-4" v-if="vault.isPrivate"></i>
 
                   <h1 class="card-title text-shadow text-center">
                     {{ vault?.name }}
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between">
-                <div class="d-flex align-items-center"><i class="mdi mdi-arrow-left fw-bold fs-1" @click="goBack()"></i></div>
+                <div class="d-flex align-items-center"><i class="mdi mdi-arrow-left fw-bold fs-1" title="back button" aria-label="back button" @click="goBack()"></i></div>
                 <div class="dropend" v-if="owner">
                   <button
                     class="btn border-0 p-0"
@@ -38,10 +38,10 @@
                   </button>
                   <ul class="dropdown-menu dropdown-menu-dark">
                     <li>
-                      <a class="dropdown-item" @click="editVault()">edit</a>
+                      <a class="dropdown-item" title="edit vault" @click="editVault()">edit</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" @click="deleteVault(vault)"
+                      <a class="dropdown-item" title="delete vault" @click="deleteVault(vault)"
                         >delete</a
                       >
                     </li>
@@ -118,7 +118,7 @@ export default {
 
     async function getVaultById() {
       try {
-        AppState.keeps = [];
+       
         AppState.activeVault = null;
         await vaultsService.getVaultById(route.params.id);
         console.log(AppState.activeVault);
@@ -130,6 +130,7 @@ export default {
     }
     async function getKeepsInVault() {
       try {
+       
         await vaultsService.getKeepsInVault(route.params.id);
       } catch (error) {
         console.error("[bad user]", error);
@@ -168,14 +169,19 @@ export default {
       owner: computed(
         () => AppState.account.id == AppState.activeVault.creatorId
       ),
-      items: computed(() => AppState.keeps),
-      length: computed(() => AppState.keeps.length < 5),
+      items: computed(() => AppState.vKeeps),
+      length: computed(() => AppState.vKeeps.length < 5),
     };
   },
   components: { KeepCard },
 };
 </script>
 <style scoped lang="scss">
+.mdi-lock{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .orange {
   background-color: rgba(245, 97, 75, 0.715);
 }

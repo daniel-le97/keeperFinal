@@ -65,8 +65,9 @@ class KeepsService {
     const res = await api.delete(`api/keeps/${keepId}`);
     console.log(res.data);
     AppState.activeKeep = null;
-    let index = AppState.keeps.findIndex((k) => k.id == keepId);
-    AppState.keeps.splice(index, 1);
+    AppState.keeps = AppState.keeps.filter(k => k.id != keepId)
+    // let index = AppState.keeps.findIndex((k) => k.id == keepId);
+    // AppState.keeps.splice(index, 1);
   }
 }
 export const keepsService = new KeepsService();
