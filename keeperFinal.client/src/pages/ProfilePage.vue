@@ -38,6 +38,7 @@
               id="collapseExample"
               v-for="vault in vaults"
               :key="vault.id"
+              
             >
               <VaultCard :vault="vault" />
             </div>

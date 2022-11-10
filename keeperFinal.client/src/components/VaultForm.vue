@@ -96,6 +96,8 @@ import { vaultsService } from "../services/VaultsService";
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 import { swalsService } from "../services/SwalService";
+import { router } from "../router";
+
 
 export default {
   setup() {
@@ -127,6 +129,7 @@ export default {
         try {
           console.log(editable.value);
           const vault = await vaultsService.createVault(editable.value);
+            
           editable.value = {}
           Pop.success(`${vault.name} added`);
 

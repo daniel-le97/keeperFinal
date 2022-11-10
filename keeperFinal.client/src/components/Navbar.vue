@@ -2,7 +2,7 @@
   <nav
     class="navbar navbar-expand-lg navbar-dark bg-light border-bottom border-dark px-1 px-3"
   >
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex m-0" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="../assets/img/Keepr logo.png" height="35" />
       </div>

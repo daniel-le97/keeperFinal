@@ -39,7 +39,6 @@ public class ProfilesRepository : BaseRepository
                 FROM vaults vault
                 JOIN accounts account ON account.id = vault.creatorId
                 where vault.creatorId = @profileId
-                AND vault.isPrivate = false
                 GROUP BY vault.id
              
                      ; ";

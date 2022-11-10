@@ -19,7 +19,10 @@ class  ProfilesService {
   }
   async getProfileVaults(id){
     const res = await api.get('api/profiles/'+ id + '/vaults')
-    AppState.vaults = res.data.map(v => new Vault(v))
+   
+    let vaults = res.data.map(v => new Vault(v))
+    
+    AppState.vaults = vaults.filter(v => v.isPrivate != true)
     logger.log(AppState.vaults)
   }
   // 

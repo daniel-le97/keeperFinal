@@ -56,8 +56,9 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-6 rounded-pill orange">
-              <div class="text-center text-shadow fs-3" v-if="items.length">
-                {{ items.length }}
+              <div class="text-center text-shadow fs-3 d-flex gap-2 justify-content-center" v-if="items.length">
+               <div>{{ items.length }}</div>
+                <div>keeps</div>
               </div>
               <div class="text-center fs-3" v-else>vault is empty</div>
             </div>
