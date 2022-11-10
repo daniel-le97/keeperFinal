@@ -2,7 +2,7 @@
   <div class="m-3">
     <div class="card-container">
       <div class="top-card">
-        <img :src="profile?.picture" alt="icon" />
+        <img :src="profile?.picture" :alt="profile?.name" :title="profile?.name" />
       </div>
       <div class="bottom-card d-flex justify-content-center pt-5">
         <h1>{{ profile?.name }}</h1>

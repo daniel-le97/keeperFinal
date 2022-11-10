@@ -3,14 +3,18 @@
     <div class="row justify-content-center mt-5">
       <div class="col-md-10">
         <div class="container" v-if="items">
-
-          <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16"  class="mb-5">
+<div v-masonry="" class="d-flex  justify-content-center" transition-duration="0.3s" item-selector=".item">
+  <div v-masonry-tile class="item p-2" v-for="(item, index) in items">
+    <KeepCard :keep="item"/>
+  </div>
+</div>
+          <!-- <masonry-wall :items="items" :column-width="size? 150 : 250 " :gap="16"  class="mb-5">
             <template #default="{ item, index }">
               <div >
                 <KeepCard :keep="item" />
               </div>
             </template>
-          </masonry-wall>
+          </masonry-wall> -->
           <!-- <div class="bricks mt-5 mb-5">
             <div
               class="min"
@@ -81,6 +85,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.item{
+  max-width: 250px;
+}
 .hi {
   height: min-content;
 }
@@ -92,6 +99,9 @@ export default {
 @media only screen and (max-width: 768px) {
   .bricks {
     columns: 2;
+  }
+  .item{
+    width: 170px;
   }
 }
 </style>

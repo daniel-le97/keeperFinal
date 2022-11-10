@@ -4,11 +4,12 @@
   >
     <router-link class="navbar-brand d-flex m-0" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/Keepr logo.png" height="35" />
+        <img alt="logo" src="../assets/img/Keepr logo.png" title="logo" height="35" />
       </div>
     </router-link>
 
-    <button
+    <Login  class="ms-auto"/>
+    <!-- <button
       class="navbar-toggler bg-primary"
       type="button"
       data-bs-toggle="collapse"
@@ -16,17 +17,17 @@
       aria-controls="navbarText"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      title="top"
     >
       <span class="navbar-toggler-icon"> </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav ms-auto">
         <li>
-          <Login />
         </li>
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
-    </div>
+    
+    </div> -->
   </nav>
 </template>
 

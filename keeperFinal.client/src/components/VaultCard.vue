@@ -3,11 +3,11 @@
     class="card border-0 my-3 elevation-5 rounded"
     @click="makeActive(vault)"
   >
-    <img :src="vault?.coverImg" class="card-img img" alt="" />
+    <img :src="vault?.coverImg" :title="vault.name" class="card-img img" :alt="vault.name" />
     <div
       class="card-img-overlay align-items-end d-flex flex-column justify-content-between align-content-between text-shadow"
     >
-      <i class="mdi mdi-lock text-white fs-6" v-if="vault?.isPrivate"></i>
+      <i class="mdi mdi-lock text-white fs-6" title="vault is private" v-if="vault?.isPrivate"></i>
 
       <h5 class="card-title">{{ vault?.name }}</h5>
     </div>

@@ -45,12 +45,13 @@
             />
           </div>
           <div class="mb-3">
-            <label for="recipeInstruction" class="form-label"
+            <label for="descriptions" class="form-label"
               >Description</label
             >
             <textarea
               class="form-control"
-              id="recipeInstruction"
+              id="descriptions"
+              title="description"
               rows="3"
               v-model="editable.description"
               required
@@ -62,21 +63,23 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               aria-label="Close"
+              title="close button"
             >
               close
             </button>
-            <button type="submit" class="btn btn-primary" v-if="vaultForm == 0">submit Vault</button>
-            <button type="submit" class="btn btn-primary" v-else>update Vault</button>
+            <button type="submit" class="btn btn-primary" title="submit button" v-if="vaultForm == 0">submit Vault</button>
+            <button type="submit" class="btn btn-primary" title="update button" v-else>update Vault</button>
           </div>
         </div>
                <div class="col-md-6 d-flex justify-content-center  p-0 ">
-                   <i class="mdi mdi-lock text-shadow p-2 fs-4" v-if="editable.isPrivate"></i>
+                   <i class="mdi mdi-lock text-shadow p-2 fs-4" title="vault is private" v-if="editable.isPrivate"></i>
           <div class="bg-dark img-card rounded-end mb-2 mb-md-0 " >
             <img
               :src="editable.coverImg"
               alt=""
               class="img-fluid hi rounded p-1"
               v-if="editable.coverImg"
+              :title="editable.name"
             />
             <div class="text-center" v-else><span>no image yet</span></div>
           </div>
