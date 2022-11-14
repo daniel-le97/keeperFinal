@@ -51,8 +51,6 @@ export default {
         Pop.error(error);
       }
     }
-
-    // let timer = setTimeout(getAllKeeps, 1000)
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
@@ -63,14 +61,11 @@ export default {
             return
           }
         if (bottomOfWindow) {
-          // getCurrentRecipes();
-          // timer
          getAllKeeps();
           console.log("hi");
         }
       };
     }
-
     onMounted(() => {
       getAllKeeps();
       infiniteScroll();

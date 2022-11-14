@@ -31,9 +31,11 @@
           <h1 class="text-center">{{ keep?.name }}</h1>
           <p class="px-md-5 px-sm-2 d-flex justify-content-center">{{ keep?.description }}</p>
         </div>
-        <div class="d-flex justify-content-between mb-2">
+        <div class="d-flex mb-2"
+        :class="account? 'justify-content-between': ' justify-content-end'">
           <!--  inject vault stuff here TODO -->
-          <div class="d-flex gap-2" v-if="!routeVault && loggedIn">
+          <div v-if="account">
+          <div class="d-flex gap-2" v-if="!routeVault || !vaultOwner">
             <div class="dropup open d-flex align-items-end ">
               <a
                 class="btn btn-secondary dropdown-toggle btnA text-truncate"
@@ -56,18 +58,12 @@
                 ></a>
               </div>
             </div>
-            <!-- <button
-              class="btn btn-primary"
-              @click="saveKeep(keep)"
-              :disabled="!pick"
-            >
-              save
-            </button> -->
           </div>
-          <div v-else class="align-self-center">
-            <button class="btn bg-danger" v-if="vaultOwner" title="delete vaults keep" @click="deleteVaultKeep()">
+          <div v-if="vaultOwner && routeVault"  class="align-self-center">
+            <button class="btn bg-danger" title="delete vaults keep" @click="deleteVaultKeep()">
               remove
             </button>
+          </div>
           </div>
 
           <div>
@@ -113,7 +109,7 @@ export default {
       routeVault: computed(() => route.name == "Vault"),
       owner: computed(() => AppState.account?.id == props.keep.creatorId),
       vaultOwner: computed(() => AppState.account?.id == AppState.activeVault?.creatorId),
-      loggedIn: computed(() => AppState.account?.id),
+      account: computed(() => AppState.account.id),
       vaults: computed(() => AppState.userVaults),
       kept: computed(() => {
         let kept = AppState.vaultKeeps.find(
