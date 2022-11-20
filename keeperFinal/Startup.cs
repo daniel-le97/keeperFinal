@@ -24,12 +24,17 @@ public class Startup
     ConfigureCors(services);
     ConfigureAuth(services);
     services.AddControllers();
+    services.AddSpaStaticFiles(config =>
+    {
+      config.RootPath = "docs";
+    });
     services.AddSwaggerGen(c =>
     {
       c.SwaggerDoc("v1", new OpenApiInfo { Title = "keeperFinal", Version = "v1" });
     });
     services.AddSingleton<Auth0Provider>();
     services.AddScoped<IDbConnection>(x => CreateDbConnection());
+
 
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
@@ -99,7 +104,8 @@ public class Startup
     app.UseHttpsRedirection();
 
     app.UseDefaultFiles();
-    app.UseStaticFiles();
+    // app.UseStaticFiles();
+    app.UseSpaStaticFiles();
 
     app.UseRouting();
 
@@ -111,6 +117,14 @@ public class Startup
     app.UseEndpoints(endpoints =>
     {
       endpoints.MapControllers();
+    });
+
+    app.UseSpa(builder =>
+    {
+      if (env.IsDevelopment())
+      {
+        builder.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+      }
     });
   }
 }
