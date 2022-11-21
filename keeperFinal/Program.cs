@@ -14,6 +14,9 @@ public class Program
     Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder =>
     {
+      // webBuilder.UseKestrel();
+      // webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+      // webBuilder.UseUrls("https://locahost:5001");
       webBuilder.UseStartup<Startup>();
     });
 }

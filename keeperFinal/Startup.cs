@@ -26,7 +26,7 @@ public class Startup
     services.AddControllers();
     services.AddSpaStaticFiles(config =>
     {
-      config.RootPath = "docs";
+      config.RootPath = "wwwroot";
     });
     services.AddSwaggerGen(c =>
     {
@@ -123,7 +123,7 @@ public class Startup
     {
       if (env.IsDevelopment())
       {
-        builder.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+        builder.UseProxyToSpaDevelopmentServer("https://localhost:8080");
       }
     });
   }
