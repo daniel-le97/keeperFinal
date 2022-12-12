@@ -11,7 +11,7 @@ class KeepsService {
         offset: offset,
       },
     });
-    console.log(res.data);
+    // console.log(res.data);
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offset += keeps.length;
     if (keeps.length == 0) {
@@ -28,7 +28,7 @@ class KeepsService {
   }
 
   async getMatchingVaultKeep(vaultId, keepId) {
-    console.log(vaultId, keepId);
+    // console.log(vaultId, keepId);
   }
   async getKeepById(keep) {
     // console.log(keep);
@@ -63,7 +63,7 @@ class KeepsService {
   }
   async deleteKeep(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`);
-    console.log(res.data);
+    // console.log(res.data);
     AppState.activeKeep = null;
     AppState.keeps = AppState.keeps.filter(k => k.id != keepId)
     // let index = AppState.keeps.findIndex((k) => k.id == keepId);

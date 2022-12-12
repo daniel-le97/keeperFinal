@@ -1,3 +1,4 @@
+import { logger } from "./Logger";
 import Pop from "./Pop";
 
 
@@ -13,7 +14,7 @@ export class EventEmitter {
   on(event, fn, thisContext = null) {
     if (typeof fn != 'function') { return; }
     if (!(event in this)) {
-      console.error(`Unable to register listener for '${event}'`);
+      logger.error(`Unable to register listener for '${event}'`);
       Pop.error(`Unable to register listener for '${event}'`)
       return;
     }

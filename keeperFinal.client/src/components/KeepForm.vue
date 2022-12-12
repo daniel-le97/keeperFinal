@@ -81,6 +81,7 @@ import { keepsService } from "../services/KeepsService";
 import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 import { swalsService } from "../services/SwalService";
+import { logger } from "../utils/Logger";
 
 export default {
   setup() {
@@ -94,7 +95,7 @@ export default {
           editable.value = {}
           Modal.getOrCreateInstance("#keepForm").hide();
         } catch (error) {
-          console.error("[]", error);
+          logger.error("[]", error);
           Pop.error(error);
         }
       },

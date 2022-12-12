@@ -62,7 +62,7 @@ export default {
           }
         if (bottomOfWindow) {
          getAllKeeps();
-          console.log("hi");
+          // console.log("hi");
         }
       };
     }

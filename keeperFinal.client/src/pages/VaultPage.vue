@@ -106,6 +106,7 @@ import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
 import { router } from "../router";
 import { vaultsService } from "../services/VaultsService";
+import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 
 export default {
@@ -122,9 +123,9 @@ export default {
        
         AppState.activeVault = null;
         await vaultsService.getVaultById(route.params.id);
-        console.log(AppState.activeVault);
+        // console.log(AppState.activeVault);
       } catch (error) {
-        console.error("[bad vault]");
+        logger.error("[bad vault]");
         router.push({ name: "Home" });
         // Pop.error(error);
       }
@@ -134,7 +135,7 @@ export default {
        
         await vaultsService.getKeepsInVault(route.params.id);
       } catch (error) {
-        console.error("[bad user]", error);
+        logger.error("[bad user]", error);
         // Pop.error(error);
       }
     }
@@ -158,7 +159,7 @@ export default {
             router.push({ name: "Home" });
           }
         } catch (error) {
-          console.error("[]", error);
+          logger.error("[]", error);
           Pop.error(error);
         }
       },

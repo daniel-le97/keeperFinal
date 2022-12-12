@@ -78,6 +78,7 @@ import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 import { swalsService } from "../services/SwalService";
 import { accountService } from "../services/AccountService";
+import { logger } from "../utils/Logger";
 
 export default {
   setup() {
@@ -99,7 +100,7 @@ export default {
           Pop.success('account successfully edited')
           Modal.getOrCreateInstance("#accountForm").hide();
         } catch (error) {
-          console.error("[]", error);
+          logger.error("[]", error);
           Pop.error(error);
         }
       },

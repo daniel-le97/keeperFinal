@@ -30,6 +30,7 @@ import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
+import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 
 export default {
@@ -65,7 +66,7 @@ export default {
         try {
             // await vau
           } catch (error) {
-            console.error('[]',error)
+            logger.error('[]',error)
             Pop.error(error)
           }
        

@@ -100,6 +100,7 @@ import { Modal } from "bootstrap";
 import Swal from "sweetalert2";
 import { swalsService } from "../services/SwalService";
 import { router } from "../router";
+import { logger } from "../utils/Logger";
 
 
 export default {
@@ -124,13 +125,13 @@ export default {
           Modal.getOrCreateInstance("#vaultForm").hide();
           Pop.success(`${editable.value.name} updated`)
         } catch (error) {
-          console.error(error);
+          logger.error(error);
           Pop.error(error);
         }
       },
       async handleVaultSubmit() {
         try {
-          console.log(editable.value);
+          // console.log(editable.value);
           const vault = await vaultsService.createVault(editable.value);
             
           editable.value = {}
@@ -138,7 +139,7 @@ export default {
 
           Modal.getOrCreateInstance("#vaultForm").hide();
         } catch (error) {
-          console.error("[]", error);
+          logger.error("[]", error);
           Pop.error(error);
         }
       },

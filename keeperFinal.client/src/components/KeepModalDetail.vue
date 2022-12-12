@@ -146,7 +146,7 @@ export default {
           if (!yes) {
             return;
           }
-          console.log(props.keep?.vaultKeepId);
+          // console.log(props.keep?.vaultKeepId);
           await vaultsService.deleteVaultKeep(props.keep?.vaultKeepId);
           Modal.getOrCreateInstance("#detail").hide();
           Pop.success("keep removed from vault");
@@ -164,7 +164,7 @@ export default {
               "center",
               `${this.pick.name} already has ${keep.name}`
             );
-            console.log(yes);
+            // console.log(yes);
             if (yes) {
               router.push({
                 name: "Vault",
