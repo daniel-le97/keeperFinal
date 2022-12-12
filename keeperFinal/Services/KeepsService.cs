@@ -15,9 +15,9 @@ public class KeepsService
     return _keepsRepo.createKeep(keepData);
   }
 
-  internal List<Keep> GetAllKeeps(int offset)
+  internal List<Keep> GetAllKeeps()
   {
-    return _keepsRepo.GetAllKeeps(offset);
+    return _keepsRepo.GetAllKeeps();
   }
 
   internal Keep GetKeepById(int keepId, string userId)

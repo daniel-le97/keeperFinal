@@ -46,29 +46,29 @@ export default {
   setup() {
     async function getAllKeeps() {
       try {
-        await keepsService.getAllKeeps(AppState.offset);
+        await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error);
       }
     }
-    function infiniteScroll() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + (window.innerHeight + 10) >=
-          document.documentElement.offsetHeight;
-          let scroller = AppState.scroll
-          if (scroller) {
-            return
-          }
-        if (bottomOfWindow) {
-         getAllKeeps();
-          // console.log("hi");
-        }
-      };
-    }
+    // function infiniteScroll() {
+    //   window.onscroll = () => {
+    //     let bottomOfWindow =
+    //       document.documentElement.scrollTop + (window.innerHeight + 10) >=
+    //       document.documentElement.offsetHeight;
+    //       let scroller = AppState.scroll
+    //       if (scroller) {
+    //         return
+    //       }
+    //     if (bottomOfWindow) {
+    //      getAllKeeps();
+    //       // console.log("hi");
+    //     }
+    //   };
+    // }
     onMounted(() => {
       getAllKeeps();
-      infiniteScroll();
+      // infiniteScroll();
     });
     return {
       items: computed(() => AppState.keeps),

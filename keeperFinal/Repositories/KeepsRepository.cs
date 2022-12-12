@@ -8,19 +8,19 @@ public class KeepsRepository : BaseRepository
 
   internal Keep createKeep(Keep keepData)
   {
-      var sql = @"INSERT INTO keeps
+    var sql = @"INSERT INTO keeps
               (name, description, img, views, creatorId)
               VALUES (@Name, @Description, @Img, @views, @CreatorId);
               SELECT LAST_INSERT_ID()
                   ;";
-    
-       int keepId = _db.ExecuteScalar<int>(sql, keepData);
-        return GetKeepById(keepId);
+
+    int keepId = _db.ExecuteScalar<int>(sql, keepData);
+    return GetKeepById(keepId);
   }
 
-  internal List<Keep> GetAllKeeps(int offset)
+  internal List<Keep> GetAllKeeps()
   {
-      var sql = @"SELECT 
+    var sql = @"SELECT 
                 keep.*,
                 COUNT(vaultKeep.id) AS Kept,
                 account.*
@@ -29,18 +29,17 @@ public class KeepsRepository : BaseRepository
                 LEFT JOIN vaultKeeps vaultKeep ON vaultKeep.keepId = keep.id
                 GROUP BY keep.id
                 order by keep.createdAt desc
-                limit 30 offset @offset
          
       
              
                      ;";
-          return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>
-           {
-             keep.Creator = profile;
-             
-             return keep;
-           }, new {offset}).ToList();
-    
+    return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+     {
+       keep.Creator = profile;
+
+       return keep;
+     }).ToList();
+
   }
 
   internal Keep GetKeepById(int keepId)
@@ -55,37 +54,37 @@ public class KeepsRepository : BaseRepository
           WHERE keep.id =  @keepId 
           GROUP BY keep.id
           ;";
-        return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
-        {
-          keep.Creator = profile;
-          return keep;
-        }, new { keepId }).FirstOrDefault();
+    return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+    {
+      keep.Creator = profile;
+      return keep;
+    }, new { keepId }).FirstOrDefault();
   }
 
   internal void DeleteKeep(int id)
   {
-      var sql = @"DELETE FROM keeps WHERE id = @id;";
-    
-       var rows = _db.Execute(sql, new {id});
-    if (rows !=1){throw new Exception("Data is bad or Id is Bad");}
+    var sql = @"DELETE FROM keeps WHERE id = @id;";
+
+    var rows = _db.Execute(sql, new { id });
+    if (rows != 1) { throw new Exception("Data is bad or Id is Bad"); }
     return;
-    
+
   }
   internal Keep EditKeep(Keep original)
   {
-     string sql = @"UPDATE keeps SET
+    string sql = @"UPDATE keeps SET
                   name = @Name,
                   description = @Description,
                   img = @Img,
                   views = @Views
                   WHERE id = @Id 
                        ;";
-        var rows = _db.Execute(sql, original);
-        if (rows != 1)
-        {
-          throw new Exception("Unable to edit" );
-        }
-    
-        return GetKeepById(original.Id);
+    var rows = _db.Execute(sql, original);
+    if (rows != 1)
+    {
+      throw new Exception("Unable to edit");
+    }
+
+    return GetKeepById(original.Id);
   }
 }

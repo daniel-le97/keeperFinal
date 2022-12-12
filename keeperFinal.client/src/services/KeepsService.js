@@ -6,17 +6,13 @@ import { api } from "./AxiosService";
 
 class KeepsService {
   async getAllKeeps(offset) {
-    const res = await api.get("api/keeps", {
-      params: {
-        offset: offset,
-      },
-    });
+    const res = await api.get("api/keeps");
     // console.log(res.data);
     let keeps = res.data.map((k) => new Keep(k));
-    AppState.offset += keeps.length;
-    if (keeps.length == 0) {
-      AppState.scroll = 1
-    }
+    // AppState.offset += keeps.length;
+    // if (keeps.length == 0) {
+    //   AppState.scroll = 1
+    // }
     // console.log(AppState.offset);
     AppState.keeps = [...AppState.keeps, ...keeps];
   }
