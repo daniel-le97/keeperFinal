@@ -7,6 +7,7 @@ COPY ./keeperFinal/keeperFinal.csproj ./
 RUN dotnet restore
 # Build and publish a release
 COPY . ./keeperFinal
+RUN cd keeperFinal
 RUN dotnet publish -c Release -o out
 
 # Start runtime image
