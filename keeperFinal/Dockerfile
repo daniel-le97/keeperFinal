@@ -6,7 +6,7 @@ COPY ./keeperFinal/keeperFinal.csproj ./
 # Restore as distinct layers
 RUN dotnet restore
 # Build and publish a release
-COPY . ./keeperFinal
+COPY . ./
 
 RUN dotnet publish -c Release -o ./keeperFInal/out
 
