@@ -8,7 +8,7 @@ RUN dotnet restore
 # Build and publish a release
 COPY . ./
 
-RUN dotnet publish -c Release -o ./keeperFInal/out
+RUN dotnet publish keeperFinal.csproj -c Release -o 
 
 # Start runtime image
 FROM mcr.microsoft.com/dotnet/sdk:6.0
