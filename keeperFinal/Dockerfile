@@ -6,7 +6,7 @@ COPY ./keeperFinal/keeperFinal.csproj ./
 # Restore as distinct layers
 RUN dotnet restore
 # Build and publish a release
-COPY . ./
+COPY . ./keeperFinal
 RUN dotnet publish -c Release -o out
 
 # Start runtime image
