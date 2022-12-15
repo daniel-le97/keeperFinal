@@ -7,13 +7,12 @@ COPY ./keeperFinal/keeperFinal.csproj ./
 RUN dotnet restore
 # Build and publish a release
 COPY . ./keeperFinal
-RUN cd keeperFinal
+
 RUN dotnet publish -c Release -o out
-RUN cd ..
 
 # Start runtime image
 FROM mcr.microsoft.com/dotnet/sdk:6.0
-WORKDIR /app/keeperFinal
+WORKDIR /app
 COPY --from=build-env /app/out .
 # ------------------------------------⬇ replace with your apps name + .dll
 CMD ASPNETCORE_URLS=http://* dotnet keeperFinal.dll
