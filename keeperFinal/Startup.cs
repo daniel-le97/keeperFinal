@@ -24,6 +24,7 @@ public class Startup
     ConfigureCors(services);
     ConfigureAuth(services);
     services.AddControllers();
+
     services.AddSpaStaticFiles(config =>
     {
       config.RootPath = "wwwroot";
@@ -86,6 +87,7 @@ public class Startup
   private IDbConnection CreateDbConnection()
   {
     string connectionString = Configuration["CONNECTION_STRING"];
+    Console.WriteLine(connectionString);
     return new MySqlConnection(connectionString);
   }
 
