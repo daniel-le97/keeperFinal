@@ -87,7 +87,7 @@ public class Startup
   private IDbConnection CreateDbConnection()
   {
     string connectionString = Configuration["CONNECTION_STRING"];
-    Console.WriteLine(connectionString);
+    Console.WriteLine(connectionString.Trim('\''));
     return new MySqlConnection(connectionString);
   }
 
